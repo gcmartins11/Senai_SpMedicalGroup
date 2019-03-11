@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpMedicalGroup.WebApi.Domains
 {
@@ -7,7 +8,10 @@ namespace SpMedicalGroup.WebApi.Domains
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
+
+        
         public DateTime DataConsulta { get; set; }
+
         public TimeSpan HoraConsulta { get; set; }
         public int? IdPaciente { get; set; }
         public int? IdMedico { get; set; }
