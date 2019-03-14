@@ -29,7 +29,7 @@ namespace SpMedicalGroup.WebApi.Domains
             if (!optionsBuilder.IsConfigured)
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=.\\SqlExpress; Initial Catalog= SPMEDICALGROUP_MANHA; Integrated Security=True"); // USER ID = sa; Pwd = 132 // Integrated Security=True
+                optionsBuilder.UseSqlServer("Data Source=.\\SqlExpress; Initial Catalog= SPMEDICALGROUP_MANHA; USER ID = sa; Pwd = 132"); // USER ID = sa; Pwd = 132 // Integrated Security=True
             }
         }
 

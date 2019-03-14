@@ -10,11 +10,18 @@ namespace SpMedicalGroup.WebApi.Domains
         public string Descricao { get; set; }
 
         // [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Informe a data")]
         public DateTime DataConsulta { get; set; }
 
+        [Required(ErrorMessage = "Informe a hora")]
         public TimeSpan HoraConsulta { get; set; }
+
+        [Required(ErrorMessage = "Informe o id do paciente")]
         public int? IdPaciente { get; set; }
+
+        [Required(ErrorMessage = "Informe o id do médico")]
         public int? IdMedico { get; set; }
+
         public int? StatusConsulta { get; set; }
 
         public Medicos IdMedicoNavigation { get; set; }

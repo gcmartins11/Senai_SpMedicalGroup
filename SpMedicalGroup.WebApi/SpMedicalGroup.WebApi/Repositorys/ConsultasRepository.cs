@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Http;
 using SpMedicalGroup.WebApi.Controllers;
 using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
 using SpMedicalGroup.WebApi.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpMedicalGroup.WebApi.Repositorys
 {
@@ -42,26 +43,72 @@ namespace SpMedicalGroup.WebApi.Repositorys
             }
         }
 
-        public List<Consultas> Listar()
+        public List<ConsultasViewModel> Listar(int id)
         {
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
 
-                if (LoginController.usuarioLogado == null)
+                switch (id)
                 {
-                    return null;
-                }
+                    //case 1:
+                    //    return ctx.Consultas.ToList();
 
-                switch (LoginController.usuarioLogado.IdCredencial)
-                {
-                    case 1:
-                        return ctx.Consultas.ToList();
+                    //case 2:
 
-                    case 2:
-                        return ctx.Consultas.Where(c => c.IdMedico == LoginController.usuarioLogado.Id).ToList();
+                    //    Pacientes paciente = ctx.Pacientes.ToList().First(p => p.IdUsuario == id);
+
+                    //    List<Consultas> consultas = ctx.Consultas.Where(c => c.IdMedico == id).ToList();
+
+                    //    List<ConsultasViewModel> consultasRetorno = new List<ConsultasViewModel>();
+
+                    //    foreach (var consulta in consultas)
+                    //    {
+                    //        ConsultasViewModel consultaRetorno = new ConsultasViewModel
+                    //        {
+                    //            Id = consulta.Id,
+                    //            Descricao = consulta.Descricao,
+                    //            DataConsulta = consulta.DataConsulta,
+                    //            HoraConsulta = consulta.HoraConsulta,
+                    //            IdPaciente = consulta.IdPaciente,
+                    //            NomePaciente = paciente.Nome,
+                    //            IdMedico = consulta.IdMedico,
+                    //            StatusConsulta = consulta.StatusConsulta
+                    //        };
+
+                    //        consultasRetorno.Add(consultaRetorno);
+                    //    }
+
+                    //    return consultasRetorno;
+
 
                     case 3:
-                        return ctx.Consultas.Where(c => c.IdPaciente == LoginController.usuarioLogado.Id).ToList();
+
+                        Pacientes paciente = ctx.Pacientes.Where(p => p.IdUsuario == id);
+
+                        List<Consultas> consultas = ctx.Consultas.Where(c => c.IdPaciente == id).ToList();
+
+                        List<ConsultasViewModel> consultasRetorno = new List<ConsultasViewModel>();
+
+                        foreach (var consulta in consultas)
+                        {
+                            ConsultasViewModel consultaRetorno = new ConsultasViewModel
+                            {
+                                Id = consulta.Id,
+                                Descricao = consulta.Descricao,
+                                DataConsulta = consulta.DataConsulta,
+                                HoraConsulta = consulta.HoraConsulta,
+                                IdPaciente = consulta.IdPaciente,
+                                NomePaciente = paciente.Nome,
+                                IdMedico = consulta.IdMedico,
+                                StatusConsulta = consulta.StatusConsulta
+                            };
+
+                            consultasRetorno.Add(consultaRetorno);
+                        }
+
+                        return consultasRetorno;
+
+                        // return ctx.Consultas.Where(c => c.IdPaciente == id).ToList();
 
                     default:
                         return null;

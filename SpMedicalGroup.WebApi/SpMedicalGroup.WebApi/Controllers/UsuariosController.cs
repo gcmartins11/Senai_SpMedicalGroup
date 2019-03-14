@@ -44,7 +44,17 @@ namespace SpMedicalGroup.WebApi.Controllers
         {
             try
             {
+
+                if(usuario.IdCredencial < 1 || usuario.IdCredencial > 3)
+                {
+                    return BadRequest(new
+                    {
+                        mensagem = "Insira uma credencial válida",
+                    });
+                }
+
                 UsuarioRepository.Cadastrar(usuario);
+
                 return Ok();
             }
             catch (System.Exception ex)

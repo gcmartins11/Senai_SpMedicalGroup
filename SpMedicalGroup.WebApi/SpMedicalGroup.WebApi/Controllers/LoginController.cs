@@ -26,8 +26,6 @@ namespace SpMedicalGroup.WebApi.Controllers
             UsuarioRepository = new UsuariosRepository();
         }
 
-        public static Usuarios usuarioLogado { get; set; }
-
         [HttpPost]
         public IActionResult Login(LoginViewModel login)
         {
@@ -43,7 +41,6 @@ namespace SpMedicalGroup.WebApi.Controllers
                     });
                 }
 
-                usuarioLogado = usuarioBuscado;
 
                 //Define os dados que serão fornecidos no token - PayLoad
                 var claims = new[]

@@ -6,7 +6,9 @@ using SpMedicalGroup.WebApi.Repositorys;
 using SpMedicalGroup.WebApi.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SpMedicalGroup.WebApi.Controllers
@@ -29,12 +31,16 @@ namespace SpMedicalGroup.WebApi.Controllers
         {
             try
             {
-                if (ConsultasRepository.Listar() == null)
+                int id = Convert.ToInt32(
+                    HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Role).Value
+                    );
+
+                if (ConsultasRepository.Listar(id) == null)
                 {
-                    return BadRequest();
+                    return BadRequest("Não foi possível listar as consultas");
                 }
 
-                return Ok(ConsultasRepository.Listar());
+                return Ok(ConsultasRepository.Listar(id));
             }
             catch (System.Exception ex)
             {
