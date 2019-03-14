@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
 using SpMedicalGroup.WebApi.Repositorys;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SpMedicalGroup.WebApi.Controllers
 {
+    [Authorize(Roles = "1")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -28,6 +30,33 @@ namespace SpMedicalGroup.WebApi.Controllers
             try
             {
                 return Ok(ClinicasRepository.Listar());
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                return Ok(ClinicasRepository.GetById(id));
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [Route("Medicos")]
+        [HttpGet]
+        public IActionResult GetComMedicos()
+        {
+            try
+            {
+                return Ok(ClinicasRepository.ListarComMedicos());
             }
             catch (System.Exception ex)
             {

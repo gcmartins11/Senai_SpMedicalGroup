@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
 using SpMedicalGroup.WebApi.Repositorys;
@@ -22,11 +23,17 @@ namespace SpMedicalGroup.WebApi.Controllers
             ConsultasRepository = new ConsultasRepository();
         }
 
+        [Authorize(Roles = "1, 2, 3")]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             try
             {
+                if (ConsultasRepository.Listar() == null)
+                {
+                    return BadRequest();
+                }
+
                 return Ok(ConsultasRepository.Listar());
             }
             catch (System.Exception ex)
@@ -35,6 +42,7 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Post(Consultas consulta)
         {
@@ -49,6 +57,7 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [Route("status")]
         [HttpPut]
         public IActionResult PutStatus(ConsultasViewModel consulta)
@@ -69,6 +78,7 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "2")]
         [Route("descricao")]
         [HttpPut]
         public IActionResult PutDescricao(ConsultasViewModel consulta)

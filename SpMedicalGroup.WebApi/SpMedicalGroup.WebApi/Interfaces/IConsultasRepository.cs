@@ -1,4 +1,5 @@
-﻿using SpMedicalGroup.WebApi.Domains;
+﻿using SpMedicalGroup.WebApi.Controllers;
+using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.ViewModel;
 using System;
 using System.Collections.Generic;

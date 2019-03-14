@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "b50abe2f-75ae-4662-9530-f3c77d526ea4",
+		"name": "SpMedicalGroup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						},
+						"description": "http://localhost:5000/api/usuarios"
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWwuY21hcnRpbnMxMUBnbWFpbC5jb20iLCJqdGkiOiIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMSIsInRlc3RlIjoibGFyYW5qYSIsImV4cCI6MTU1MjQyMzM3MiwiaXNzIjoiU3BNZWRHcm91cC5XZWJBcGkiLCJhdWQiOiJTcE1lZEdyb3VwLldlYkFwaSJ9.pdNebrq6Xh0ymITnCnJQtW8oZrnDcTOmuIv2ne1fVXw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"teste1@auth.com\",\n\t\"senha\": \"12345\",\n\t\"idCredencial\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						},
+						"description": "http://localhost:5000/api/usuarios"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9dd815c-ba80-4748-b9fb-c052b1dab9ad",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"gabriel.cmartins11@gmail.com\",\n\t\"senha\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "http://localhost:5000/api/login\n\n{\n\t\"email\": \"gabriel.cmartins11@gmail.com\",\n\t\"senha\": \"admin\"\n}\n\n{\n\t\"email\": \"helena.souza@spmedicalgroup.com.br\",\n\t\"senha\": \"teste\"\n}\n\n{\n\t\"email\": \"ligia@gmail.com\",\n\t\"senha\": \"teste\"\n}\n\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"consultas"
+							]
+						},
+						"description": "http://localhost:5000/api/consultas"
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"Postman Test\",\n    \"dataConsulta\": \"2019-02-08T00:00:00\",\n    \"horaConsulta\": \"15:00:00\",\n    \"idPaciente\": 4,\n    \"idMedico\": 4,\n    \"statusConsulta\": 1\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"consultas"
+							]
+						},
+						"description": "http://localhost:5000/api/consultas\n\nDescrição e status são opcionais"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 13,\n\t\"statusConsulta\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/consultas/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"consultas",
+								"status"
+							]
+						},
+						"description": "http://localhost:5000/api/consultas/status"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar descrição",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 13,\n\t\"descricao\": \"Teste Descricao Postman\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/consultas/descricao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"consultas",
+								"descricao"
+							]
+						},
+						"description": "http://localhost:5000/api/consultas/descricao"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clínicas",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/clinicas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"clinicas"
+							]
+						},
+						"description": "http://localhost:5000/api/clinicas"
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"razaoSocial\": \"Teste\",\n    \"nomeFantasia\": \"Teste\",\n    \"cnpj\": \"123456789123\",\n    \"logradouro\": \"Alameda Barão de Limeira\",\n    \"numero\": 539,\n    \"bairro\": \"Santa Cecília\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\"\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/clinicas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"clinicas"
+							]
+						},
+						"description": "http://localhost:5000/api/clinicas"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"razaoSocial\": \"Teste Atualizado\",\n    \"nomeFantasia\": \"SPMedicalGroup\",\n    \"cnpj\": \"123456789012\",\n    \"logradouro\": \"Alameda Barão de Limeira\",\n    \"numero\": 539,\n    \"bairro\": \"Santa Cecília\",\n    \"cidade\": \"São Paulo\",\n    \"estado\": \"SP\",\n    \"medicos\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/clinicas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"clinicas"
+							]
+						},
+						"description": "http://localhost:5000/api/clinicas"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

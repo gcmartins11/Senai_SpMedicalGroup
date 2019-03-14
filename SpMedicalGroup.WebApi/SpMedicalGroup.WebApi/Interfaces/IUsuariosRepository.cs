@@ -10,6 +10,10 @@ namespace SpMedicalGroup.WebApi.Interfaces
     {
         List<Usuarios> Listar();
 
+        Usuarios GetById(int id);
+
         void Cadastrar(Usuarios usuario);
+
+        Usuarios BuscarEmailSenha(string email, string senha);
     }
 }

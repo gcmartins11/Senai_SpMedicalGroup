@@ -10,6 +10,10 @@ namespace SpMedicalGroup.WebApi.Interfaces
     {
         List<Clinicas> Listar();
 
+        List<Clinicas> ListarComMedicos();
+
+        Clinicas GetById(int id);
+
         void Cadastrar(Clinicas clinica);
 
         void Atualizar(Clinicas clinica);

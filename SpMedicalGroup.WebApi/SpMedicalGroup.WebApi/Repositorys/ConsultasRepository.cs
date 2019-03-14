@@ -1,4 +1,6 @@
-﻿using SpMedicalGroup.WebApi.Domains;
+﻿using Microsoft.EntityFrameworkCore;
+using SpMedicalGroup.WebApi.Controllers;
+using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
 using SpMedicalGroup.WebApi.ViewModel;
 using System;
@@ -44,7 +46,28 @@ namespace SpMedicalGroup.WebApi.Repositorys
         {
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
-                return ctx.Consultas.ToList();
+
+                if (LoginController.usuarioLogado == null)
+                {
+                    return null;
+                }
+
+                switch (LoginController.usuarioLogado.IdCredencial)
+                {
+                    case 1:
+                        return ctx.Consultas.ToList();
+
+                    case 2:
+                        return ctx.Consultas.Where(c => c.IdMedico == LoginController.usuarioLogado.Id).ToList();
+
+                    case 3:
+                        return ctx.Consultas.Where(c => c.IdPaciente == LoginController.usuarioLogado.Id).ToList();
+
+                    default:
+                        return null;
+                }
+
+
             }
         }
     }

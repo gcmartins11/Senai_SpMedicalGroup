@@ -9,7 +9,7 @@ namespace SpMedicalGroup.WebApi.Domains
         public int Id { get; set; }
         public string Descricao { get; set; }
 
-        
+        // [DataType(DataType.Date)]
         public DateTime DataConsulta { get; set; }
 
         public TimeSpan HoraConsulta { get; set; }
