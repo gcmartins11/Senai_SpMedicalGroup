@@ -28,7 +28,25 @@ namespace SpMedicalGroup.WebApi.Repositorys
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
                 Consultas consultaUpdate = ctx.Consultas.Find(consulta.Id);
-                consultaUpdate.StatusConsulta = consulta.StatusConsulta;
+
+                switch (consulta.Status)
+                {
+                    case "Agendada":
+                        consultaUpdate.StatusConsulta = 1;
+                        break;
+
+                    case "Realizada":
+                        consultaUpdate.StatusConsulta = 2;
+                        break;
+
+                    case "Cancelada":
+                        consultaUpdate.StatusConsulta = 3;
+                        break;  
+
+                    default:
+                        break;
+                }
+
                 ctx.SaveChanges();
 
             }
@@ -43,77 +61,34 @@ namespace SpMedicalGroup.WebApi.Repositorys
             }
         }
 
-        public List<ConsultasViewModel> Listar(int id)
+        public List<Consultas> Listar(string credencial, int idUsuario)
         {
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
 
-                switch (id)
+                switch (credencial)
                 {
-                    //case 1:
-                    //    return ctx.Consultas.ToList();
+                    case "Paciente":
+                        Usuarios usuario = ctx.Usuarios.Find(idUsuario);
 
-                    //case 2:
+                        List<Consultas> consultas = ctx.Consultas
+                            .Where(c => c.IdPaciente == usuario.Id)
+                            .Include(c => c.IdPacienteNavigation)
+                            .Include(c => c.IdMedicoNavigation)
+                            //.Include(c => c.StatusConsultaNavigation)
+                            .ToList();
 
-                    //    Pacientes paciente = ctx.Pacientes.ToList().First(p => p.IdUsuario == id);
+                        return consultas;
 
-                    //    List<Consultas> consultas = ctx.Consultas.Where(c => c.IdMedico == id).ToList();
+                    //case "Medico":
+                    //    break;
 
-                    //    List<ConsultasViewModel> consultasRetorno = new List<ConsultasViewModel>();
-
-                    //    foreach (var consulta in consultas)
-                    //    {
-                    //        ConsultasViewModel consultaRetorno = new ConsultasViewModel
-                    //        {
-                    //            Id = consulta.Id,
-                    //            Descricao = consulta.Descricao,
-                    //            DataConsulta = consulta.DataConsulta,
-                    //            HoraConsulta = consulta.HoraConsulta,
-                    //            IdPaciente = consulta.IdPaciente,
-                    //            NomePaciente = paciente.Nome,
-                    //            IdMedico = consulta.IdMedico,
-                    //            StatusConsulta = consulta.StatusConsulta
-                    //        };
-
-                    //        consultasRetorno.Add(consultaRetorno);
-                    //    }
-
-                    //    return consultasRetorno;
-
-
-                    case 3:
-
-                        Pacientes paciente = ctx.Pacientes.Where(p => p.IdUsuario == id);
-
-                        List<Consultas> consultas = ctx.Consultas.Where(c => c.IdPaciente == id).ToList();
-
-                        List<ConsultasViewModel> consultasRetorno = new List<ConsultasViewModel>();
-
-                        foreach (var consulta in consultas)
-                        {
-                            ConsultasViewModel consultaRetorno = new ConsultasViewModel
-                            {
-                                Id = consulta.Id,
-                                Descricao = consulta.Descricao,
-                                DataConsulta = consulta.DataConsulta,
-                                HoraConsulta = consulta.HoraConsulta,
-                                IdPaciente = consulta.IdPaciente,
-                                NomePaciente = paciente.Nome,
-                                IdMedico = consulta.IdMedico,
-                                StatusConsulta = consulta.StatusConsulta
-                            };
-
-                            consultasRetorno.Add(consultaRetorno);
-                        }
-
-                        return consultasRetorno;
-
-                        // return ctx.Consultas.Where(c => c.IdPaciente == id).ToList();
+                    //case "Administrador":
+                    //    break;
 
                     default:
                         return null;
                 }
-
 
             }
         }

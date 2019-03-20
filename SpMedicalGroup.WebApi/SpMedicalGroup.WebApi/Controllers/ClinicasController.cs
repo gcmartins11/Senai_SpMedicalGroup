@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SpMedicalGroup.WebApi.Controllers
 {
-    [Authorize(Roles = "1")]
+    [Authorize(Roles = "Administrador")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]

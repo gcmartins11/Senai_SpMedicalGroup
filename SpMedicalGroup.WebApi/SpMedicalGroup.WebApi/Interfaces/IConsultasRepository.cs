@@ -10,7 +10,7 @@ namespace SpMedicalGroup.WebApi.Interfaces
 {
     interface IConsultasRepository
     {
-        List<ConsultasViewModel> Listar(int id);
+        List<Consultas> Listar(string credencial, int idUsuario);
 
         void Cadastrar(Consultas consulta);
 

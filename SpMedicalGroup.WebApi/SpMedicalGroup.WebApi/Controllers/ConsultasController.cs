@@ -25,22 +25,38 @@ namespace SpMedicalGroup.WebApi.Controllers
             ConsultasRepository = new ConsultasRepository();
         }
 
-        [Authorize(Roles = "1, 2, 3")]
+        [Authorize(Roles = "Administrador, Medico, Paciente")]
         [HttpGet]
         public IActionResult GetAll()
         {
             try
             {
-                int id = Convert.ToInt32(
-                    HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Role).Value
+                string credencial = HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Role).Value;
+
+                int idUsuario = Convert.ToInt32(
+                    HttpContext.User.Claims.First(x => x.Type == JwtRegisteredClaimNames.Jti).Value
                     );
 
-                if (ConsultasRepository.Listar(id) == null)
+                List<Consultas> listaConsultas = ConsultasRepository.Listar(credencial, idUsuario);
+
+                List<ConsultasViewModel> consultasResultado = new List<ConsultasViewModel>();
+
+                foreach (var consulta in listaConsultas)
                 {
-                    return BadRequest("Não foi possível listar as consultas");
+                    ConsultasViewModel consultaResultado = new ConsultasViewModel
+                    {
+                        Id = consulta.Id,
+                        NomePaciente = consulta.IdMedicoNavigation.Nome,
+                        NomeMedico = consulta.IdMedicoNavigation.Nome
+                    };
+
+                    consultasResultado.Add(consultaResultado);
                 }
 
-                return Ok(ConsultasRepository.Listar(id));
+                
+
+
+                return Ok(consultasResultado);
             }
             catch (System.Exception ex)
             {
@@ -48,7 +64,7 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public IActionResult Post(Consultas consulta)
         {
@@ -63,18 +79,13 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "Administrador")]
         [Route("status")]
         [HttpPut]
         public IActionResult PutStatus(ConsultasViewModel consulta)
         {
             try
             {
-                if(consulta.StatusConsulta > 3 || consulta.StatusConsulta < 1)
-                {
-                    return BadRequest("Status inválido");
-                }
-
                 ConsultasRepository.AtualizarStatus(consulta);
                 return Ok();
             }
@@ -84,7 +95,7 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "Medico")]
         [Route("descricao")]
         [HttpPut]
         public IActionResult PutDescricao(ConsultasViewModel consulta)

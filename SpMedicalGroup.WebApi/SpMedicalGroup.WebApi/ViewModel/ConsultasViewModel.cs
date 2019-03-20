@@ -23,7 +23,11 @@ namespace SpMedicalGroup.WebApi.ViewModel
 
         public int? IdMedico { get; set; }
 
-        public int? StatusConsulta { get; set; }
+        public string NomeMedico { get; set; }
+
+        public int? IdStatusConsulta { get; set; }
+
+        public string Status { get; set; }
 
     }
 }

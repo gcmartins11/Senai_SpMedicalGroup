@@ -43,11 +43,11 @@ namespace SpMedicalGroup.WebApi.Controllers
 
 
                 //Define os dados que serão fornecidos no token - PayLoad
-                var claims = new[]
+                    var claims = new[]
                 {
                     new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.Id.ToString()),
-                    new Claim(ClaimTypes.Role, usuarioBuscado.IdCredencial.ToString()),
+                    new Claim(ClaimTypes.Role, usuarioBuscado.IdCredencialNavigation.Credencial.ToString()),
                     new Claim("teste", "laranja")
                 };
 
