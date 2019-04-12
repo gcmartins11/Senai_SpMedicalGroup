@@ -8,6 +8,7 @@ using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
 using SpMedicalGroup.WebApi.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace SpMedicalGroup.WebApi.Repositorys
 {
@@ -63,18 +64,27 @@ namespace SpMedicalGroup.WebApi.Repositorys
 
         public List<Consultas> Listar(string credencial, int idUsuario)
         {
+            string StringConexao = @"Data Source=.\SqlExpress; initial catalog=SPMEDICAlGROUP_MANHA; user id=sa; pwd = 132";
+
+            
+
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
 
                 switch (credencial)
                 {
+
                     case "Paciente":
-                        Usuarios usuario = ctx.Usuarios.Find(idUsuario);
+
+                        Pacientes pacienteProcurado = ctx.Pacientes.Where(p => p.IdUsuario == idUsuario).FirstOrDefault();
+
+                        //List<Pacientes> pacienteProcurado = ctx.Pacientes.Where(c => c.IdUsuario == idUsuario).ToList();
 
                         List<Consultas> consultas = ctx.Consultas
-                            .Where(c => c.IdPaciente == usuario.Id)
-                            .Include(c => c.IdPacienteNavigation)
-                            .Include(c => c.IdMedicoNavigation)
+                            .Where(c => c.IdPaciente == pacienteProcurado.Id)
+                            //.Include(c => c.IdPacienteNavigation)
+                            //.Where(c => 5 == usuario.Id)
+                            //.Include(c => c.IdMedicoNavigation)
                             //.Include(c => c.StatusConsultaNavigation)
                             .ToList();
 
@@ -83,8 +93,9 @@ namespace SpMedicalGroup.WebApi.Repositorys
                     //case "Medico":
                     //    break;
 
-                    //case "Administrador":
-                    //    break;
+                    case "Administrador":
+                        List<Consultas> todasConsultas = ctx.Consultas.ToList();
+                        return todasConsultas;
 
                     default:
                         return null;

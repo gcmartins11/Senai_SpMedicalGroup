@@ -11912,11 +11912,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\45346351841\\Desktop\\Senai.SpMedicalGroup\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\45346351841\\Projetos\\Senai.SpMedicalGroup\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi.csproj",
       "projectName": "SpMedicalGroup.WebApi",
-      "projectPath": "C:\\Users\\45346351841\\Desktop\\Senai.SpMedicalGroup\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi.csproj",
+      "projectPath": "C:\\Users\\45346351841\\Projetos\\Senai.SpMedicalGroup\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi.csproj",
       "packagesPath": "C:\\Users\\45346351841\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\45346351841\\Desktop\\Senai.SpMedicalGroup\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi\\obj\\",
+      "outputPath": "C:\\Users\\45346351841\\Projetos\\Senai.SpMedicalGroup\\SpMedicalGroup.WebApi\\SpMedicalGroup.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

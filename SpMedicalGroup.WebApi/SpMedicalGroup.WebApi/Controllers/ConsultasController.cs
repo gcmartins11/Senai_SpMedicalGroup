@@ -39,24 +39,23 @@ namespace SpMedicalGroup.WebApi.Controllers
 
                 List<Consultas> listaConsultas = ConsultasRepository.Listar(credencial, idUsuario);
 
-                List<ConsultasViewModel> consultasResultado = new List<ConsultasViewModel>();
+                //List<ConsultasViewModel> consultasResultado = new List<ConsultasViewModel>();
 
-                foreach (var consulta in listaConsultas)
-                {
-                    ConsultasViewModel consultaResultado = new ConsultasViewModel
-                    {
-                        Id = consulta.Id,
-                        NomePaciente = consulta.IdMedicoNavigation.Nome,
-                        NomeMedico = consulta.IdMedicoNavigation.Nome
-                    };
+                //foreach (var consulta in listaConsultas)
+                //{
+                //    ConsultasViewModel consultaResultado = new ConsultasViewModel
+                //    {
+                //        Id = consulta.Id,
+                //        NomePaciente = consulta.IdMedicoNavigation.Nome,
+                //        NomeMedico = consulta.IdMedicoNavigation.Nome
+                //    };
 
-                    consultasResultado.Add(consultaResultado);
-                }
+                //    consultasResultado.Add(consultaResultado);
+                //}
 
-                
+                //return Ok(consultasResultado);
 
-
-                return Ok(consultasResultado);
+                return Ok(listaConsultas);
             }
             catch (System.Exception ex)
             {
