@@ -78,7 +78,6 @@ namespace SpMedicalGroup.WebApi.Repositorys
 
                         Pacientes pacienteProcurado = ctx.Pacientes.Where(p => p.IdUsuario == idUsuario).FirstOrDefault();
 
-                        //List<Pacientes> pacienteProcurado = ctx.Pacientes.Where(c => c.IdUsuario == idUsuario).ToList();
 
                         List<Consultas> consultas = ctx.Consultas
                             .Where(c => c.IdPaciente == pacienteProcurado.Id)
