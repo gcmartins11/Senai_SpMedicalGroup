@@ -64,9 +64,6 @@ namespace SpMedicalGroup.WebApi.Repositorys
 
         public List<Consultas> Listar(string credencial, int idUsuario)
         {
-            string StringConexao = @"Data Source=.\SqlExpress; initial catalog=SPMEDICAlGROUP_MANHA; user id=sa; pwd = 132";
-
-            
 
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
@@ -78,13 +75,10 @@ namespace SpMedicalGroup.WebApi.Repositorys
 
                         Pacientes pacienteProcurado = ctx.Pacientes.Where(p => p.IdUsuario == idUsuario).FirstOrDefault();
 
-
                         List<Consultas> consultas = ctx.Consultas
                             .Where(c => c.IdPaciente == pacienteProcurado.Id)
-                            //.Include(c => c.IdPacienteNavigation)
-                            //.Where(c => 5 == usuario.Id)
-                            //.Include(c => c.IdMedicoNavigation)
-                            //.Include(c => c.StatusConsultaNavigation)
+                            .Include(c => c.IdMedicoNavigation)
+                            .Include("StatusConsultaNavigation")
                             .ToList();
 
                         return consultas;
