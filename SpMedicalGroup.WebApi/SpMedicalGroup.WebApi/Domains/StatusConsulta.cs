@@ -11,7 +11,7 @@ namespace SpMedicalGroup.WebApi.Domains
         }
 
         public int Id { get; set; }
-        public string StatusConsulta1 { get; set; }
+        public string Situacao { get; set; }
 
         public ICollection<Consultas> Consultas { get; set; }
     }

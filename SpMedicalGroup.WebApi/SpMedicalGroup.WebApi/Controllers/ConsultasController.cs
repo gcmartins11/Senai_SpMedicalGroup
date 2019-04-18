@@ -37,23 +37,7 @@ namespace SpMedicalGroup.WebApi.Controllers
                     HttpContext.User.Claims.First(x => x.Type == JwtRegisteredClaimNames.Jti).Value
                     );
 
-                List<Consultas> listaConsultas = ConsultasRepository.Listar(credencial, idUsuario);
-
-                //List<ConsultasViewModel> consultasResultado = new List<ConsultasViewModel>();
-
-                //foreach (var consulta in listaConsultas)
-                //{
-                //    ConsultasViewModel consultaResultado = new ConsultasViewModel
-                //    {
-                //        Id = consulta.Id,
-                //        NomePaciente = consulta.IdMedicoNavigation.Nome,
-                //        NomeMedico = consulta.IdMedicoNavigation.Nome
-                //    };
-
-                //    consultasResultado.Add(consultaResultado);
-                //}
-
-                //return Ok(consultasResultado);
+                List<ConsultasViewModel> listaConsultas = ConsultasRepository.Listar(credencial, idUsuario);
 
                 return Ok(listaConsultas);
             }

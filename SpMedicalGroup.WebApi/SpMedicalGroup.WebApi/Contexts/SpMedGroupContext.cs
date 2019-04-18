@@ -28,8 +28,8 @@ namespace SpMedicalGroup.WebApi.Domains
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=.\\SqlExpress; Initial Catalog= SPMEDICALGROUP_MANHA; USER ID = sa; Pwd = 132"); // USER ID = sa; Pwd = 132 // Integrated Security=True
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Data Source=.\\SqlExpress; Initial Catalog= SPMEDICALGROUP_MANHA; Integrated Security=True");
             }
         }
 
@@ -38,6 +38,14 @@ namespace SpMedicalGroup.WebApi.Domains
             modelBuilder.Entity<Clinicas>(entity =>
             {
                 entity.ToTable("CLINICAS");
+
+                entity.HasIndex(e => e.Cnpj)
+                    .HasName("UQ__CLINICAS__AA57D6B451AC04ED")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.RazaoSocial)
+                    .HasName("UQ__CLINICAS__10D918D9384F292A")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -106,24 +114,24 @@ namespace SpMedicalGroup.WebApi.Domains
 
                 entity.Property(e => e.IdPaciente).HasColumnName("ID_PACIENTE");
 
-                entity.Property(e => e.StatusConsulta)
-                    .HasColumnName("STATUS_CONSULTA")
+                entity.Property(e => e.IdStatus)
+                    .HasColumnName("ID_STATUS")
                     .HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.IdMedicoNavigation)
                     .WithMany(p => p.Consultas)
                     .HasForeignKey(d => d.IdMedico)
-                    .HasConstraintName("FK__CONSULTAS__ID_ME__76969D2E");
+                    .HasConstraintName("FK__CONSULTAS__ID_ME__628FA481");
 
                 entity.HasOne(d => d.IdPacienteNavigation)
                     .WithMany(p => p.Consultas)
                     .HasForeignKey(d => d.IdPaciente)
-                    .HasConstraintName("FK__CONSULTAS__ID_PA__75A278F5");
+                    .HasConstraintName("FK__CONSULTAS__ID_PA__619B8048");
 
-                entity.HasOne(d => d.StatusConsultaNavigation)
+                entity.HasOne(d => d.IdStatusNavigation)
                     .WithMany(p => p.Consultas)
-                    .HasForeignKey(d => d.StatusConsulta)
-                    .HasConstraintName("FK__CONSULTAS__STATU__778AC167");
+                    .HasForeignKey(d => d.IdStatus)
+                    .HasConstraintName("FK__CONSULTAS__ID_ST__6383C8BA");
             });
 
             modelBuilder.Entity<Credenciais>(entity =>
@@ -156,9 +164,14 @@ namespace SpMedicalGroup.WebApi.Domains
             {
                 entity.ToTable("MEDICOS");
 
+                entity.HasIndex(e => e.Crm)
+                    .HasName("UQ__MEDICOS__C1F887FF8B00054C")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Crm)
+                    .IsRequired()
                     .HasColumnName("CRM")
                     .HasMaxLength(7)
                     .IsUnicode(false);
@@ -178,22 +191,30 @@ namespace SpMedicalGroup.WebApi.Domains
                 entity.HasOne(d => d.IdClinicaNavigation)
                     .WithMany(p => p.Medicos)
                     .HasForeignKey(d => d.IdClinica)
-                    .HasConstraintName("FK__MEDICOS__ID_CLIN__571DF1D5");
+                    .HasConstraintName("FK__MEDICOS__ID_CLIN__5CD6CB2B");
 
                 entity.HasOne(d => d.IdEspecialidadeNavigation)
                     .WithMany(p => p.Medicos)
                     .HasForeignKey(d => d.IdEspecialidade)
-                    .HasConstraintName("FK__MEDICOS__ID_ESPE__5629CD9C");
+                    .HasConstraintName("FK__MEDICOS__ID_ESPE__5BE2A6F2");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Medicos)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__MEDICOS__ID_USUA__5535A963");
+                    .HasConstraintName("FK__MEDICOS__ID_USUA__5AEE82B9");
             });
 
             modelBuilder.Entity<Pacientes>(entity =>
             {
                 entity.ToTable("PACIENTES");
+
+                entity.HasIndex(e => e.Cpf)
+                    .HasName("UQ__PACIENTE__C1F89731314B3FB6")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Rg)
+                    .HasName("UQ__PACIENTE__321537C89E60A7DA")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -255,7 +276,7 @@ namespace SpMedicalGroup.WebApi.Domains
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Pacientes)
                     .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK__PACIENTES__ID_US__5070F446");
+                    .HasConstraintName("FK__PACIENTES__ID_US__5535A963");
             });
 
             modelBuilder.Entity<StatusConsulta>(entity =>
@@ -264,8 +285,9 @@ namespace SpMedicalGroup.WebApi.Domains
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.StatusConsulta1)
-                    .HasColumnName("STATUS_CONSULTA")
+                entity.Property(e => e.Situacao)
+                    .IsRequired()
+                    .HasColumnName("SITUACAO")
                     .HasMaxLength(200)
                     .IsUnicode(false);
             });
@@ -273,6 +295,10 @@ namespace SpMedicalGroup.WebApi.Domains
             modelBuilder.Entity<Usuarios>(entity =>
             {
                 entity.ToTable("USUARIOS");
+
+                entity.HasIndex(e => e.Email)
+                    .HasName("UQ__USUARIOS__161CF724B38F03E3")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -293,7 +319,7 @@ namespace SpMedicalGroup.WebApi.Domains
                 entity.HasOne(d => d.IdCredencialNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdCredencial)
-                    .HasConstraintName("FK__USUARIOS__ID_CRE__4D94879B");
+                    .HasConstraintName("FK__USUARIOS__ID_CRE__5070F446");
             });
         }
     }

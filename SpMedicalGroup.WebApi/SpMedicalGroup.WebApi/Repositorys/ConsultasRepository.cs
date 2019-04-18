@@ -33,15 +33,15 @@ namespace SpMedicalGroup.WebApi.Repositorys
                 switch (consulta.Status)
                 {
                     case "Agendada":
-                        consultaUpdate.StatusConsulta = 1;
+                        consultaUpdate.IdStatus = 1;
                         break;
 
                     case "Realizada":
-                        consultaUpdate.StatusConsulta = 2;
+                        consultaUpdate.IdStatus = 2;
                         break;
 
                     case "Cancelada":
-                        consultaUpdate.StatusConsulta = 3;
+                        consultaUpdate.IdStatus = 3;
                         break;  
 
                     default:
@@ -62,11 +62,13 @@ namespace SpMedicalGroup.WebApi.Repositorys
             }
         }
 
-        public List<Consultas> Listar(string credencial, int idUsuario)
+        public List<ConsultasViewModel> Listar(string credencial, int idUsuario)
         {
 
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
+                List<ConsultasViewModel> consultasRetorno = new List<ConsultasViewModel>();
+
 
                 switch (credencial)
                 {
@@ -75,20 +77,90 @@ namespace SpMedicalGroup.WebApi.Repositorys
 
                         Pacientes pacienteProcurado = ctx.Pacientes.Where(p => p.IdUsuario == idUsuario).FirstOrDefault();
 
-                        List<Consultas> consultas = ctx.Consultas
+                        List<Consultas> consultasPaciente = ctx.Consultas
                             .Where(c => c.IdPaciente == pacienteProcurado.Id)
                             .Include(c => c.IdMedicoNavigation)
-                            .Include("StatusConsultaNavigation")
+                            .Include(c => c.IdStatusNavigation)
                             .ToList();
 
-                        return consultas;
+                        foreach (var consulta in consultasPaciente)
+                        {
+                            ConsultasViewModel consultaRetorno = new ConsultasViewModel()
+                            {
+                                Id = consulta.Id,
+                                DataConsulta = consulta.DataConsulta,
+                                HoraConsulta = consulta.HoraConsulta,
+                                IdPaciente = consulta.IdPaciente,
+                                NomePaciente = consulta.IdPacienteNavigation.Nome,
+                                IdMedico = consulta.IdMedico,
+                                NomeMedico = consulta.IdMedicoNavigation.Nome,
+                                Descricao = consulta.Descricao,
+                                IdStatusConsulta = consulta.IdStatus,
+                                Status = consulta.IdStatusNavigation.Situacao
+                            };
+                            consultasRetorno.Add(consultaRetorno);
+                        }
 
-                    //case "Medico":
-                    //    break;
+                        return consultasRetorno;
+
+                    case "Medico":
+
+                        Medicos medicoProcurado = ctx.Medicos.Where(m => m.IdUsuario == idUsuario).FirstOrDefault();
+
+                        List<Consultas> consultasMedico = ctx.Consultas
+                        .Where(m => m.IdMedico == medicoProcurado.Id)
+                        .Include(m => m.IdPacienteNavigation)
+                        .Include(m => m.IdStatusNavigation)
+                        .ToList();
+
+                        foreach (var consulta in consultasMedico)
+                        {
+                            ConsultasViewModel consultaRetorno = new ConsultasViewModel()
+                            {
+                                Id = consulta.Id,
+                                DataConsulta = consulta.DataConsulta,
+                                HoraConsulta = consulta.HoraConsulta,
+                                IdPaciente = consulta.IdPaciente,
+                                NomePaciente = consulta.IdPacienteNavigation.Nome,
+                                IdMedico = consulta.IdMedico,
+                                NomeMedico = consulta.IdMedicoNavigation.Nome,
+                                Descricao = consulta.Descricao,
+                                IdStatusConsulta = consulta.IdStatus,
+                                Status = consulta.IdStatusNavigation.Situacao
+                            };
+                            consultasRetorno.Add(consultaRetorno);
+                        }
+
+                        return consultasRetorno;
+
 
                     case "Administrador":
-                        List<Consultas> todasConsultas = ctx.Consultas.ToList();
-                        return todasConsultas;
+
+                        List<Consultas> todasConsultas = ctx.Consultas
+                            .Include(p => p.IdPacienteNavigation)
+                            .Include(m => m.IdMedicoNavigation)
+                            .Include(m => m.IdStatusNavigation) //.ThenInclude(situacao => situacao.Situacao)
+                            .ToList();
+
+                        foreach (var consulta in todasConsultas)
+                        {
+                            ConsultasViewModel consultaRetorno = new ConsultasViewModel()
+                            {
+                                Id = consulta.Id,
+                                DataConsulta = consulta.DataConsulta,
+                                HoraConsulta = consulta.HoraConsulta,
+                                IdPaciente = consulta.IdPaciente,
+                                NomePaciente = consulta.IdPacienteNavigation.Nome,
+                                IdMedico = consulta.IdMedico,
+                                NomeMedico = consulta.IdMedicoNavigation.Nome,
+                                Descricao = consulta.Descricao,
+                                IdStatusConsulta = consulta.IdStatus,
+                                Status = consulta.IdStatusNavigation.Situacao
+                            };
+                            consultasRetorno.Add(consultaRetorno);
+                        }
+
+                        return consultasRetorno;
 
                     default:
                         return null;
