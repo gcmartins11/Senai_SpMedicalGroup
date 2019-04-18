@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
+using SpMedicalGroup.WebApi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -26,8 +27,6 @@ namespace SpMedicalGroup.WebApi.Repositorys
                     return null;
                 }
 
-                
-
                 return usuario;
 
                 //return ctx.Usuarios.FirstOrDefault(x => x.Email == email && x.Senha == senha);
@@ -35,11 +34,38 @@ namespace SpMedicalGroup.WebApi.Repositorys
         }
 
 
-        public void Cadastrar(Usuarios usuario)
+        public void Cadastrar(CadastroViewModel usuarioCadastrado)
         {
+            
             using (SpMedGroupContext ctx = new SpMedGroupContext())
             {
+                Usuarios usuario = new Usuarios()
+                {
+                    Email = usuarioCadastrado.Email,
+                    Senha = usuarioCadastrado.Senha,
+                    IdCredencial = usuarioCadastrado.IdCredencial
+                };
+
                 ctx.Usuarios.Add(usuario);
+                ctx.SaveChanges();
+
+                Pacientes paciente = new Pacientes()
+                {
+                    Nome = usuarioCadastrado.Nome,
+                    Rg = usuarioCadastrado.Rg,
+                    Cpf = usuarioCadastrado.Cpf,
+                    DataNascimento = usuarioCadastrado.DataNascimento,
+                    Telefone = usuarioCadastrado.Telefone,
+                    Logradouro = usuarioCadastrado.Logradouro,
+                    Numero = usuarioCadastrado.Numero,
+                    Bairro = usuarioCadastrado.Bairro,
+                    Cidade = usuarioCadastrado.Cidade,
+                    Estado = usuarioCadastrado.Estado,
+                    IdUsuario = ctx.Usuarios.Count()
+                };
+
+
+                ctx.Pacientes.Add(paciente);
                 ctx.SaveChanges();
             }
         }

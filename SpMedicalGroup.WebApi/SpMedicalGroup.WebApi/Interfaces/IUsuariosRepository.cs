@@ -1,4 +1,5 @@
 ﻿using SpMedicalGroup.WebApi.Domains;
+using SpMedicalGroup.WebApi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SpMedicalGroup.WebApi.Interfaces
 
         Usuarios GetById(int id);
 
-        void Cadastrar(Usuarios usuario);
+        void Cadastrar(CadastroViewModel usuario);
 
         Usuarios BuscarEmailSenha(string email, string senha);
     }

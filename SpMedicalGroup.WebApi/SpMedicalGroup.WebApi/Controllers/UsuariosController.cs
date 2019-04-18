@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpMedicalGroup.WebApi.Domains;
 using SpMedicalGroup.WebApi.Interfaces;
 using SpMedicalGroup.WebApi.Repositorys;
+using SpMedicalGroup.WebApi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace SpMedicalGroup.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Usuarios usuario)
+        public IActionResult Post(CadastroViewModel usuario)
         {
             try
             {
