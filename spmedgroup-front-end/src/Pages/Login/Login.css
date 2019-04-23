@@ -1,12 +1,11 @@
 body{
-    background-color: grey;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 .login-background {
-    background-color: #13C9AA;
+    background-color: #fff;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -21,6 +20,7 @@ body{
     border-radius: 15px;
     display: flex;
     justify-content: center;
+    box-shadow: 2px 2px 5px black;
 }
 
 .login-form {
