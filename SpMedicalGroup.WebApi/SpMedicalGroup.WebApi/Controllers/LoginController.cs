@@ -48,7 +48,6 @@ namespace SpMedicalGroup.WebApi.Controllers
                     new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.Id.ToString()),
                     new Claim(ClaimTypes.Role, usuarioBuscado.IdCredencialNavigation.Credencial.ToString()),
-                    new Claim("teste", "laranja")
                 };
 
                 // Chave de acesso do token

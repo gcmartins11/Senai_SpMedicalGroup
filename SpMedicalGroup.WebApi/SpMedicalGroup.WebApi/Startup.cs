@@ -17,6 +17,15 @@ namespace SpMedicalGroup.WebApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.DateFormatString = "dd'-'MM'-'yyyy";
@@ -76,7 +85,10 @@ namespace SpMedicalGroup.WebApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
             app.UseMvc();
+
         }
     }
 }
