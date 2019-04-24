@@ -1,7 +1,6 @@
 body{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 .login-background {
@@ -14,7 +13,7 @@ body{
 }
 
 .login-box {
-    background-color: teal;
+    background-color: #13C9AA;
     width: 60%;
     height: 70%;
     border-radius: 15px;
@@ -38,17 +37,17 @@ body{
 
 .input-padrao {
     border: 0;
-    border-bottom:3px solid #13C9AA;
+    border-bottom:3px solid teal;
     width: 100%;
     height: 40px;
-    border-radius: 7px;
+    border-radius: 5px;
     font-size: 15pt;
     margin-bottom: 15px;
     margin-top: 15px;
 }
 
 .login-button{
-    background-color: #13C9AA;
+    background-color: teal;
     border: 0;
     width: 45%;
     height: 50px;

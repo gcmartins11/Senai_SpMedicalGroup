@@ -1,14 +1,14 @@
 .card {
     background-color: rgb(230, 230, 230);
-    width: 50%;
+    width: 35%;
     margin: 25px auto;
     border-radius: 7px;
     border-left: 7px solid #14D6B5;
-    padding: 20px 40px;
+    padding: 20px 60px;
 }
 
 .data-hora {
-    width: 40%;
+    width: 55%;
     display: flex;
     justify-content: space-between
 }

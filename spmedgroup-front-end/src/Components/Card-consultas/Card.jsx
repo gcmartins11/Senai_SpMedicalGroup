@@ -3,18 +3,16 @@ import './Card.css'
 
 import Info from './Info'
 
-function Card() {
+export default props => {
     return (
         <div className="card">
-            <Info titulo="Especialidade" info="Neurologia"/>
-            <Info titulo="Medico" info="Neurologia"/>
+            <Info titulo="Especialidade" info={props.especialidade}/>
+            <Info titulo="Doutor(a)" info={props.medico}/>
             <div className="data-hora">
-                <Info titulo="Data" info="01/01/2000"/>
-                <Info titulo="Hora" info="12:00"/>
+                <Info titulo="Data" info={props.data}/>
+                <Info titulo="Hora" info={props.hora}/>
             </div>
-            <Info titulo="Status" info="Realizada"/>
+            <Info titulo="Status" info={props.status}/>
         </div>
     )
 }
-
-export default Card
