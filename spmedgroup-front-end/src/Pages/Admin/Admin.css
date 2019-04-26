@@ -1,0 +1,63 @@
+.cadastrar-usuario {
+    display: flex;
+    flex-direction: column
+}
+
+.cadastrar-usuario h1 {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.cadastrar-usuario h2 {
+    font-size: 12pt;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.input-cadastro {
+    width: 50%;
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+}
+
+.select-credencial {
+    width: 50%;
+    height: 35px;
+    border-radius: 7px;
+    border: 0;
+    margin-bottom: 25px;
+    color: #696969;
+}
+
+.select-credencial option:hover {
+    background-color: black
+}
+
+.botao-cadastrar {
+    background-color: teal;
+    border: 0;
+    width: 35%;
+    height: 35px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 500;
+    letter-spacing: 2px;
+    box-shadow: 1px 1px 5px #000;
+}
+
+.botao-cadastrar:active{
+    background-color: #fff;
+    color: teal;
+    outline: none
+}
+
+.hora{
+    border: 0;
+    border-radius: 7px;
+    outline: none;
+    font-size: 12pt;
+}

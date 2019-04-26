@@ -64,18 +64,51 @@ namespace SpMedicalGroup.WebApi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [Route("getmedicos")]
+        [HttpGet]
+        public IActionResult GetMedicos()
         {
             try
             {
-                return Ok(UsuarioRepository.GetById(id));
+                
+                return Ok(UsuarioRepository.GetMedicos());
             }
-            catch (System.Exception ex)
+            catch (Exception)
             {
-                return BadRequest(ex);
+
+                throw;
             }
         }
+
+        [Route("getpacientes")]
+        [HttpGet]
+        public IActionResult GetPacientes()
+        {
+            try
+            {
+
+                return Ok(UsuarioRepository.GetPacientes());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        //[HttpGet("{id}")]
+        //public IActionResult GetById(int id)
+        //{
+        //    try
+        //    {
+        //        return Ok(UsuarioRepository.GetById(id));
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        return BadRequest(ex);
+        //    }
+        //}
+
 
     }
 }

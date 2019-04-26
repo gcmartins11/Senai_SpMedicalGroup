@@ -81,6 +81,7 @@ namespace SpMedicalGroup.WebApi.Repositorys
                             .Where(c => c.IdPaciente == pacienteProcurado.Id)
                             .Include(c => c.IdMedicoNavigation)
                             .Include(c => c.IdStatusNavigation)
+                            .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
                             .ToList();
 
                         foreach (var consulta in consultasPaciente)
@@ -94,6 +95,7 @@ namespace SpMedicalGroup.WebApi.Repositorys
                                 NomePaciente = consulta.IdPacienteNavigation.Nome,
                                 IdMedico = consulta.IdMedico,
                                 NomeMedico = consulta.IdMedicoNavigation.Nome,
+                                Especialidade = consulta.IdMedicoNavigation.IdEspecialidadeNavigation.Especialidade,
                                 Descricao = consulta.Descricao,
                                 IdStatusConsulta = consulta.IdStatus,
                                 Status = consulta.IdStatusNavigation.Situacao
@@ -111,6 +113,7 @@ namespace SpMedicalGroup.WebApi.Repositorys
                         .Where(m => m.IdMedico == medicoProcurado.Id)
                         .Include(m => m.IdPacienteNavigation)
                         .Include(m => m.IdStatusNavigation)
+                        .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
                         .ToList();
 
                         foreach (var consulta in consultasMedico)
@@ -124,6 +127,7 @@ namespace SpMedicalGroup.WebApi.Repositorys
                                 NomePaciente = consulta.IdPacienteNavigation.Nome,
                                 IdMedico = consulta.IdMedico,
                                 NomeMedico = consulta.IdMedicoNavigation.Nome,
+                                Especialidade = consulta.IdMedicoNavigation.IdEspecialidadeNavigation.Especialidade,
                                 Descricao = consulta.Descricao,
                                 IdStatusConsulta = consulta.IdStatus,
                                 Status = consulta.IdStatusNavigation.Situacao
@@ -140,6 +144,7 @@ namespace SpMedicalGroup.WebApi.Repositorys
                             .Include(p => p.IdPacienteNavigation)
                             .Include(m => m.IdMedicoNavigation)
                             .Include(m => m.IdStatusNavigation) //.ThenInclude(situacao => situacao.Situacao)
+                            .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
                             .ToList();
 
                         foreach (var consulta in todasConsultas)
@@ -153,6 +158,7 @@ namespace SpMedicalGroup.WebApi.Repositorys
                                 NomePaciente = consulta.IdPacienteNavigation.Nome,
                                 IdMedico = consulta.IdMedico,
                                 NomeMedico = consulta.IdMedicoNavigation.Nome,
+                                Especialidade = consulta.IdMedicoNavigation.IdEspecialidadeNavigation.Especialidade,
                                 Descricao = consulta.Descricao,
                                 IdStatusConsulta = consulta.IdStatus,
                                 Status = consulta.IdStatusNavigation.Situacao

@@ -21,7 +21,6 @@ class Consultas extends Component {
 
         fetch('https://spmedgroup.azurewebsites.net/api/consultas',
             {
-                // body : JSON.stringify({ wishDescription : this.state.wishDescription }),
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + localStorage.getItem("usuario")
@@ -33,14 +32,6 @@ class Consultas extends Component {
 
     }
 
-    listarConsultas() {
-        let card = document.createElement("Card")
-        let quadro = document.getElementById("fundo-cards")
-        quadro.appendChild(card)
-        // document.body.appendChild(card)
-    }
-
-
     render() {
         console.log(this.state.listaconsultas)
 
@@ -48,7 +39,7 @@ class Consultas extends Component {
             <div className="fundo-consultas">
                 <Navbar />
                 <div id="fundo-cards" className="fundo-cards">
-                    {this.state.listaconsultas.map(chave => { return <Card especialidade="Especialidade" medico={chave.nomeMedico} data={chave.dataConsulta} hora={chave.horaConsulta} status={chave.status} /> })}
+                    {this.state.listaconsultas.map(chave => { return <Card key={chave.id} especialidade={chave.especialidade} medico={chave.nomeMedico} data={chave.dataConsulta} hora={chave.horaConsulta} status={chave.status} /> })}
                     {/* <Card especialidade="Neurologia" medico="Helena" data="10/10/2019" hora="19:00" status="Realizada" /> */}
                 </div>
             </div>

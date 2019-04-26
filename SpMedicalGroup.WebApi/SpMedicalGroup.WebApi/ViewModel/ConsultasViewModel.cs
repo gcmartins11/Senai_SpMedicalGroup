@@ -24,6 +24,7 @@ namespace SpMedicalGroup.WebApi.ViewModel
         public int? IdMedico { get; set; }
 
         public string NomeMedico { get; set; }
+        public string Especialidade { get; set; }
 
         public int? IdStatusConsulta { get; set; }
 

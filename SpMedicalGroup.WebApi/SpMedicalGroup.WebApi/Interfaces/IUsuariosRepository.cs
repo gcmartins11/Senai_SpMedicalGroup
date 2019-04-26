@@ -16,5 +16,9 @@ namespace SpMedicalGroup.WebApi.Interfaces
         void Cadastrar(CadastroViewModel usuario);
 
         Usuarios BuscarEmailSenha(string email, string senha);
+
+        List<Medicos> GetMedicos();
+
+        List<Pacientes> GetPacientes();
     }
 }

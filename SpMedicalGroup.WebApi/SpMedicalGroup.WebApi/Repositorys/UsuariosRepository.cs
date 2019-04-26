@@ -86,6 +86,22 @@ namespace SpMedicalGroup.WebApi.Repositorys
             }    
         }
 
+        public List<Medicos> GetMedicos()
+        {
+            using(SpMedGroupContext ctx = new SpMedGroupContext())
+            {
+                return ctx.Medicos.ToList();
+            }
+        }
+
+        public List<Pacientes> GetPacientes()
+        {
+            using (SpMedGroupContext ctx = new SpMedGroupContext())
+            {
+                return ctx.Pacientes.ToList();
+            }
+        }
+
         public List<Usuarios> Listar()
         {
             using (SpMedGroupContext ctx = new SpMedGroupContext())

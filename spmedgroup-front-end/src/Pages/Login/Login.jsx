@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
+import { parseJwt } from '../../Services/Auth'
 
 import './Login.css'
 import Logo from '../../Img/logo-spmed.png'
@@ -10,7 +11,7 @@ class Login extends Component {
         this.state = {
             email: '',
             senha: '',
-            mensagemErro: ''
+            mensagemErro: '',
         }
     }
 
@@ -23,6 +24,8 @@ class Login extends Component {
     }
 
     efetuarLogin(e) {
+
+        
         e.preventDefault()
 
         // http://localhost:5000/api/login
@@ -33,16 +36,23 @@ class Login extends Component {
         })
         .then(data => {
             if(data.status === 200){
-                // console.log(data);
+                console.log(data);
                 localStorage.setItem("usuario", data.data.token);
-                this.props.history.push('/consultas');
-                
+                var credencial = Object.values(parseJwt())[2]
+                if(credencial === "Paciente" || credencial === "Medico"){
+                    this.props.history.push('/consultas');
+                } else {
+                    this.props.history.push("/admin/usuario")
+                }   
             }
+
+            console.log(data)
         })
         .catch(erro => {
             this.setState({ erroMensagem : 'Email ou senha inválidos'});
 })
-    } 
+    }
+    
 
     render() {
         return (
