@@ -1,12 +1,16 @@
-import React from 'react'
+import React, {Component} from 'react'
 import './Navbar.css'
 
-function Navbar() {
-    return (
-        <nav className="nav">
-            
-        </nav>
-    )
+class Navbar extends Component {
+    render() {
+        return (
+            <nav className="nav">
+                {/* <marquee behavior="" direction="right"> */}
+                    <a href="http://localhost:3000/login" onClick={() => localStorage.removeItem("usuario")}>Sair</a>
+                {/* </marquee> */}
+            </nav>
+        )
+    }
 }
 
 export default Navbar

@@ -17,8 +17,7 @@ class Admin extends Component {
             cidade: '',
             estado: '',
             email: '',
-            senha: '',
-            
+            senha: '', 
             idcredencial: ''
         }
     }

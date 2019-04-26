@@ -6,14 +6,18 @@ class AdminConsulta extends Component {
     constructor() {
         super();
         this.state = {
-            horaConsulta: '15:59:00',
-                    dataConsulta: '2019-02-08T00:00:00',
-                    idPaciente: '2',
-                    idMedico: '1',
-                    statusConsulta: 1,
+            listaMedicos : [] ,   
+            listaPacientes: []        
         }
-        this.medicos = []
-        this.pacientes = []
+
+        this.consulta = {
+            horaConsulta: '',
+            dataConsulta: '',
+            idPaciente: '',
+            idMedico: '',
+            statusConsulta: 1,
+        }
+
     }
 
     componentDidMount() {
@@ -25,7 +29,7 @@ class AdminConsulta extends Component {
                 }
             })
             .then(response => response.json())
-            .then(data => this.medicos = data)
+            .then(data => this.setState({listaMedicos: data}))
             .catch(erro => console.log(erro))
 
             fetch('https://spmedgroup.azurewebsites.net/api/usuarios/getpacientes',
@@ -36,7 +40,7 @@ class AdminConsulta extends Component {
                 }
             })
             .then(response => response.json())
-            .then(data => this.pacientes = data)
+            .then(data => this.setState({listaPacientes: data}))
             .catch(erro => console.log(erro))
             
     }
@@ -66,7 +70,7 @@ class AdminConsulta extends Component {
 
         fetch('https://spmedgroup.azurewebsites.net/api/consultas',
         {   method: 'POST',
-            body : JSON.stringify(this.state),
+            body : JSON.stringify(this.consulta),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("usuario")
@@ -102,14 +106,14 @@ class AdminConsulta extends Component {
                     <br/>
                     <select className="select-credencial" name="" onChange={this.atualizarMedico.bind(this)} id="selecionar-credencial">
                         <option value="" defaultValue="selected">Selecione</option>
-                        {this.medicos.map(chave => {
+                        {this.state.listaMedicos.map(chave => {
                             return <option value={chave.id} key={chave.id}>{chave.nome}</option> 
                         })}
                     </select>
                     <br/>
                     <select className="select-credencial" name="" onChange={this.atualizaRPaciente.bind(this)} id="selecionar-credencial">
                         <option value="" defaultValue="selected">Selecione</option>
-                        {this.pacientes.map(chave => {
+                        {this.state.listaPacientes.map(chave => {
                             return <option value={chave.id} key={chave.id}>{chave.nome}</option> 
                         })}
                     </select>
