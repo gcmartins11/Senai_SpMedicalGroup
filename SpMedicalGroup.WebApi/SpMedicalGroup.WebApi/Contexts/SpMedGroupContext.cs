@@ -29,7 +29,9 @@ namespace SpMedicalGroup.WebApi.Domains
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:spmedgroup.database.windows.net,1433;Initial Catalog=spmedgroupdb;Persist Security Info=False;User ID=cardosospmg;Password=Cardoso_spmg0;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:spmedgroup.database.windows.net,1433;Initial Catalog=spmedgroup;Persist Security Info=False;User ID=spmedgroup;Password=Batata123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                // Server=tcp:spmedgroup.database.windows.net,1433;Initial Catalog=spmedgroup;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+                // Data Source=.\\SqlExpress; Initial Catalog= SPMEDICALGROUP_MANHA; user id=sa; pwd=132
                 //Data Source=.\\SqlExpress; Initial Catalog= SPMEDICALGROUP_MANHA; Integrated Security=True
             }
         }
