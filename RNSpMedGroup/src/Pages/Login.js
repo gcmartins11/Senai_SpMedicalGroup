@@ -4,6 +4,10 @@ import { StyleSheet, View, TextInput, Button } from 'react-native'
 import api from '../Services/Api'
 
 export default class Login extends Component {
+    static navigationOptions = {
+        header: null
+    };
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -21,6 +25,7 @@ export default class Login extends Component {
         const token = resposta.data
         console.warn(token)
 
+        this.props.navigation.navigate("Consultas")
     }
 
     render() {
@@ -37,14 +42,12 @@ export default class Login extends Component {
                     secureTextEntry={true}
                     onChangeText={senha => this.setState({ senha })}
                 />
-                <View>
-                    <Button
-                        style={styles.button}
-                        title="Login"
-                        onPress={this._RealizarLogin.bind(this)}
-                        color="#000"
-                    />
-                </View>
+                <Button
+                    style={styles.button}
+                    title="Login"
+                    onPress={this._RealizarLogin.bind(this)}
+                    color="#000"
+                />
 
             </View>
         )
