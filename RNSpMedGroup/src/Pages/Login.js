@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TextInput, Button } from 'react-native'
-
+import AsyncStorage from '@react-native-community/async-storage';
 import api from '../Services/Api'
 
 export default class Login extends Component {
@@ -23,7 +23,7 @@ export default class Login extends Component {
         })
 
         const token = resposta.data
-        console.warn(token)
+        await AsyncStorage.setItem('userToken', resposta.data.token)
 
         if (token !== null) {
             this.props.navigation.navigate("Consultas")
