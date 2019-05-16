@@ -47,7 +47,8 @@ namespace SpMedicalGroup.WebApi.Controllers
                 {
                     new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.Id.ToString()),
-                    new Claim(ClaimTypes.Role, usuarioBuscado.IdCredencialNavigation.Credencial.ToString()),
+                    //new Claim(ClaimTypes.Role, usuarioBuscado.IdCredencialNavigation.Credencial.ToString()),
+                    new Claim("role", usuarioBuscado.IdCredencialNavigation.Credencial.ToString()),
                 };
 
                 // Chave de acesso do token
@@ -68,7 +69,8 @@ namespace SpMedicalGroup.WebApi.Controllers
                 //Retorna Ok com o Token
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    usuarioBuscado.IdCredencialNavigation.Credencial
                 });
             }
             catch (System.Exception ex)
