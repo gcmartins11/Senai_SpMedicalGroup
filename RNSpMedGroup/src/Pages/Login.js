@@ -11,8 +11,8 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: '',
-            senha: ''
+            email: 'gabriel.cmartins11@gmail.com',
+            senha: 'admin'
         }
     }
 
@@ -25,7 +25,9 @@ export default class Login extends Component {
         const token = resposta.data
         console.warn(token)
 
-        this.props.navigation.navigate("Consultas")
+        if (token !== null) {
+            this.props.navigation.navigate("Consultas")
+        }
     }
 
     render() {
