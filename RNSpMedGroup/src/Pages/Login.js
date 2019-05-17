@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TextInput, Button } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
+
 import api from '../Services/Api'
 
 export default class Login extends Component {
@@ -21,11 +22,11 @@ export default class Login extends Component {
             email: this.state.email,
             senha: this.state.senha
         })
-
-        const token = resposta.data
+        
         await AsyncStorage.setItem('userToken', resposta.data.token)
-
-        if (token !== null) {
+        await AsyncStorage.setItem('userCredential', resposta.data.credencial)
+        
+        if (resposta.data.token !== null) {
             this.props.navigation.navigate("Consultas")
         }
     }
@@ -62,7 +63,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
     },
     input: {
         width: '80%',

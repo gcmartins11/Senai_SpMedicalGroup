@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, View, TextInput, Button, Text } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../Services/Api'
+import { FlatList } from 'react-native-gesture-handler';
 
 export default class Consultas extends Component {
     constructor(props) {
@@ -13,17 +14,21 @@ export default class Consultas extends Component {
         }
     }
 
-    _BuscarToken = async() => {
+    _BuscarDados = async () => {
         const token = await AsyncStorage.getItem('userToken')
-        this.setState({token})
-        // console.warn(this.state.token)
+        const role = await AsyncStorage.getItem('userCredential')
+        this.setState({ token })
+        this.setState({ role })
+        // console.warn(token)
+        // console.warn(role)
+
         this._FazerRequest()
     }
 
     _FazerRequest = async () => {
         const resposta = await api.get('/consultas', {
             headers: {
-                'Authorization' : 'Bearer ' + (this.state.token)
+                'Authorization': 'Bearer ' + (this.state.token)
             }
         })
 
@@ -32,16 +37,36 @@ export default class Consultas extends Component {
     }
 
     componentDidMount() {
-        this._BuscarToken()
+        this._BuscarDados()
     }
 
     render() {
         return (
-            <Button
-                    title="Request"
-                    onPress={this._FazerRequest.bind(this)}
-                    color="#000"
-                />
+            <View style={styles.container}>
+                <View>
+                    <FlatList
+                        data={this.state.listaConsultas}
+                        keyExtractor={item => item.id}
+                        renderItem={this.renderItem}
+                    />
+                </View>
+
+            </View>
         )
     }
+
+    renderItem = ({ item }) => (
+        <View>
+            <Text>Opa</Text>
+        </View>
+    )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+})
