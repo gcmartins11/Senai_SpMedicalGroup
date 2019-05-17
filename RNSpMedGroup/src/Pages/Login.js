@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TextInput, Button } from 'react-native'
+import { StyleSheet, View, TextInput, Button, Image } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import jwt from 'jwt-decode'
 import api from '../Services/Api'
+import logo from '../Img/logo.png'
 
 export default class Login extends Component {
     static navigationOptions = {
@@ -24,7 +25,7 @@ export default class Login extends Component {
         })
         
         await AsyncStorage.setItem('userToken', resposta.data.token)
-        await AsyncStorage.setItem('userCredential', resposta.data.credencial)
+        await AsyncStorage.setItem('userCredential', jwt(resposta.data.token).role)
         
         if (resposta.data.token !== null) {
             this.props.navigation.navigate("Consultas")
@@ -34,13 +35,19 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Image
+                    style={styles.image}
+                    source={logo}
+                />
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor={'#fff'}
                     placeholder="Email"
                     onChangeText={email => this.setState({ email })}
                 />
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor={'#fff'}
                     placeholder="Senha"
                     secureTextEntry={true}
                     onChangeText={senha => this.setState({ senha })}
@@ -49,9 +56,8 @@ export default class Login extends Component {
                     style={styles.button}
                     title="Login"
                     onPress={this._RealizarLogin.bind(this)}
-                    color="#000"
+                    color="#008080"
                 />
-
             </View>
         )
     }
@@ -63,13 +69,20 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#13C9AA',
+    },
+    image: {
+        width: 159,
+        height: 170,
+        margin: 20,
+        padding: 20,
     },
     input: {
         width: '80%',
-        borderWidth: 1,
-        borderColor: 'gray',
+        color: '#fff',
+        borderBottomColor: '#fff',
+        borderBottomWidth: 2,
         marginBottom: 30,
-        color: 'orange'
     },
     button: {
         color: '#000'

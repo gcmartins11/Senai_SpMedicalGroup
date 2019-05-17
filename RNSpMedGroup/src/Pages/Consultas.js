@@ -3,6 +3,7 @@ import { StyleSheet, View, TextInput, Button, Text } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../Services/Api'
 import { FlatList } from 'react-native-gesture-handler';
+import { isIfStatement } from '@babel/types';
 
 export default class Consultas extends Component {
     constructor(props) {
@@ -12,6 +13,10 @@ export default class Consultas extends Component {
             role: '',
             listaConsultas: []
         }
+    }
+
+    componentDidMount() {
+        this._BuscarDados()
     }
 
     _BuscarDados = async () => {
@@ -32,34 +37,32 @@ export default class Consultas extends Component {
             }
         })
 
-        const listaConsultas = resposta.data
-        console.warn(listaConsultas)
-    }
-
-    componentDidMount() {
-        this._BuscarDados()
-    }
+        this.setState({listaConsultas: resposta.data})
+        console.warn(this.state.listaConsultas)
+    } 
 
     render() {
         return (
             <View style={styles.container}>
-                <View>
-                    <FlatList
-                        data={this.state.listaConsultas}
-                        keyExtractor={item => item.id}
-                        renderItem={this.renderItem}
-                    />
-                </View>
+                <FlatList
+                    data= {this.state.listaConsultas}
+                    renderItem= {({ item }) => 
+                        <Text>
+                            {item.id}, 
+                            {item.dataConsulta}, 
+                            {item.horaConsulta}, 
+                            {item.nomePaciente}, 
+                            {isIfStatement.nomeMedico}, 
+                            {item.especialidade}, 
+                            {item.status}, 
+                            {item.descricao}
+                        </Text>
+                    }
+                />
 
             </View>
         )
     }
-
-    renderItem = ({ item }) => (
-        <View>
-            <Text>Opa</Text>
-        </View>
-    )
 }
 
 const styles = StyleSheet.create({
