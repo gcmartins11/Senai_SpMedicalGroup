@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TextInput, Button, Image } from 'react-native'
+import { StyleSheet, View, TextInput, Button, Image, TouchableOpacity, StatusBar, Text } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import jwt from 'jwt-decode'
 import api from '../Services/Api'
@@ -9,7 +9,7 @@ export default class Login extends Component {
     static navigationOptions = {
         header: null
     };
-    
+
     constructor(props) {
         super(props)
         this.state = {
@@ -23,10 +23,10 @@ export default class Login extends Component {
             email: this.state.email,
             senha: this.state.senha
         })
-        
+
         await AsyncStorage.setItem('userToken', resposta.data.token)
         await AsyncStorage.setItem('userCredential', jwt(resposta.data.token).role)
-        
+
         if (resposta.data.token !== null) {
             this.props.navigation.navigate("Consultas")
         }
@@ -35,6 +35,9 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar
+                    hidden={true}
+                />
                 <Image
                     style={styles.image}
                     source={logo}
@@ -52,12 +55,18 @@ export default class Login extends Component {
                     secureTextEntry={true}
                     onChangeText={senha => this.setState({ senha })}
                 />
-                <Button
+                {/* <Button
                     style={styles.button}
                     title="Login"
                     onPress={this._RealizarLogin.bind(this)}
                     color="#008080"
-                />
+                /> */}
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this._RealizarLogin}
+                >
+                    <Text style={styles.buttonText} > Fazer Login </Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -83,8 +92,22 @@ const styles = StyleSheet.create({
         borderBottomColor: '#fff',
         borderBottomWidth: 2,
         marginBottom: 30,
+        paddingLeft: 10,
+        paddingBottom: 1,
     },
     button: {
-        color: '#000'
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#00A0A0',
+        color: '#fff',
+        width: '45%',
+        height: 55,
+        borderRadius: 10
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: '900'
     }
+    
 })
