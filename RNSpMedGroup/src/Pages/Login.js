@@ -36,7 +36,9 @@ export default class Login extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar
-                    hidden={true}
+                    hidden={false}
+                    translucent={true}
+                    backgroundColor="#cecece00"
                 />
                 <Image
                     style={styles.image}
@@ -55,12 +57,6 @@ export default class Login extends Component {
                     secureTextEntry={true}
                     onChangeText={senha => this.setState({ senha })}
                 />
-                {/* <Button
-                    style={styles.button}
-                    title="Login"
-                    onPress={this._RealizarLogin.bind(this)}
-                    color="#008080"
-                /> */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this._RealizarLogin}
