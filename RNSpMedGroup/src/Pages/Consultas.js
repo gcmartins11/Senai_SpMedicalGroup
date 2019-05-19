@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TextInput, Button, Text } from 'react-native'
+import { StyleSheet, View, ScrollView, TextInput, Button, Text } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../Services/Api'
-import { FlatList } from 'react-native-gesture-handler';
-import { isIfStatement } from '@babel/types';
+import ConsultaCard from '../Components/ConsultaCard'
+
 
 export default class Consultas extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class Consultas extends Component {
         this.setState({ token })
         this.setState({ role })
         // console.warn(token)
-        // console.warn(role)
+        // console.warn(this.state.role)
 
         this._FazerRequest()
     }
@@ -38,28 +39,23 @@ export default class Consultas extends Component {
         })
 
         this.setState({listaConsultas: resposta.data})
-        console.warn(this.state.listaConsultas)
     } 
 
     render() {
         return (
             <View style={styles.container}>
-                <FlatList
-                    data= {this.state.listaConsultas}
-                    renderItem= {({ item }) => 
-                        <Text>
-                            {item.id}, 
-                            {item.dataConsulta}, 
-                            {item.horaConsulta}, 
-                            {item.nomePaciente}, 
-                            {isIfStatement.nomeMedico}, 
-                            {item.especialidade}, 
-                            {item.status}, 
-                            {item.descricao}
-                        </Text>
-                    }
-                />
-
+                <ScrollView style={styles.scroll}>
+                    {this.state.listaConsultas.map(chave => {
+                        // console.warn(chave)
+                        return <ConsultaCard 
+                                    especialidade={chave.especialidade}
+                                    nome={chave.nomeMedico}
+                                    data={chave.dataConsulta}
+                                    hora={chave.horaConsulta}
+                                    status={chave.status}
+                                />
+                    })}
+                </ScrollView>
             </View>
         )
     }
@@ -70,6 +66,13 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
+        margin: 0,
+        padding: 0
     },
+    scroll: {
+        flex:1,
+        width: '102%',
+        marginLeft: 15
+    }
 })
