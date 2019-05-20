@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
-import { throwStatement } from '@babel/types';
 
 class ConsultaCard extends Component {
     constructor(props) {
@@ -11,8 +10,8 @@ class ConsultaCard extends Component {
         }
     }
 
-    componentWillMount() {
-        this._buscarRole()
+    componentWillMount = async() => {
+        await this._buscarRole()
     }
 
     _buscarRole = async () => {
@@ -21,22 +20,19 @@ class ConsultaCard extends Component {
     }
 
     render() {
-        while (this.state.role === '') {
-            return (
-                <Text></Text>
-            )
-        }
         return (
             <View style={styles.card}>
-
+                {this.state.role == 'Paciente' ?
                 <View style={styles.campo}>
                     <Text style={styles.titulo}>Especialidade</Text>
                     <Text style={styles.valor}>{this.props.especialidade}</Text>
                 </View>
+                    : null
+                }
 
                 <View style={styles.campo}>
-                    <Text style={styles.titulo}>Doutor(a)</Text>
-                    <Text style={styles.valor}>{this.props.nome}</Text>
+                    {this.state.role == 'Paciente' ? <Text style={styles.titulo}>Doutor(a)</Text> : <Text style={styles.titulo}>Paciente</Text>}
+                    {this.state.role == 'Paciente' ? <Text style={styles.valor}>{this.props.medico}</Text> : <Text style={styles.valor}>{this.props.paciente}</Text>}
                 </View>
 
                 <View style={styles.dataHora}>

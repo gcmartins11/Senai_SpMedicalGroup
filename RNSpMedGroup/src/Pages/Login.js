@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TextInput, ActivityIndicator, Image, TouchableOpacity, StatusBar, Text, Button } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
+import NetInfo from "@react-native-community/netinfo";
 import jwt from 'jwt-decode'
 import api from '../Services/Api'
 import logo from '../Img/logo.png'
@@ -13,10 +14,18 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: 'gabriel.cmartins11@gmail.com',
+            email: 'gabriel.cmartins11@gmail.com', // gabriel.cmartins11@gmail.com
             senha: 'admin',
-            loading: false
+            loading: false,
+            disabled: false,
+            connected: ''            
         }
+    }
+
+    componentWillMount = async () => {
+        await NetInfo.fetch().then(state => {
+            this.setState({connected: state.isConnected})
+          });
     }
 
     _RealizarLogin = async () => {
@@ -34,7 +43,28 @@ export default class Login extends Component {
         }
     }
 
+    setarEmail = async(e) => {
+        await this.setState({email: e})       
+        if (this.state.email != '' && this.state.connected == true) {
+            this.setState({disabled: false})
+        } else {
+            this.setState({disabled: true})
+        }
+        this.render()
+    }
+
+    setarSenha = async (e) => {
+         await this.setState({senha: e})
+         if (this.state.senha != '' && this.state.connected == true) {
+            this.setState({disabled: false})
+        } else {
+            this.setState({disabled: true})
+        }
+         this.render()
+    }
+
     render() {
+
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -51,18 +81,20 @@ export default class Login extends Component {
                     style={styles.input}
                     placeholderTextColor={'#fff'}
                     placeholder="Email"
-                    onChangeText={email => this.setState({ email })}
+                    onChangeText={email => this.setarEmail(email)}
                 />
                 <TextInput
                     style={styles.input}
                     placeholderTextColor={'#fff'}
                     placeholder="Senha"
                     secureTextEntry={true}
-                    onChangeText={senha => this.setState({ senha })}
+                    onChangeText={senha => this.setarSenha(senha)}
                 />
+                { this.state.connected ? null : <Text style={styles.disconnected}>Você está desconectado</Text> }
                 { this.state.loading ? <ActivityIndicator color='#fff' size={45} style={styles.loading} /> : null }
                 <TouchableOpacity
-                    style={styles.button}
+                    disabled={this.state.disabled}
+                    style={[styles.button, this.state.disabled ? styles.buttonDisabled : styles.buttonEnabled ]}
                     onPress={this._RealizarLogin}
                 >
                     <Text style={styles.buttonText} > Fazer Login </Text>
@@ -98,11 +130,15 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#00A0A0',
-        color: '#fff',
         width: '45%',
         height: 55,
         borderRadius: 10
+    },
+    buttonEnabled: {
+        backgroundColor: '#00A0A0',
+    },
+    buttonDisabled: {
+        backgroundColor: '#00A0A04D'
     },
     buttonText: {
         color: '#fff',
@@ -111,6 +147,10 @@ const styles = StyleSheet.create({
     },
     loading: {
         marginBottom: 30,
+    },
+    disconnected: {
+        color: 'red',
+        marginBottom: 10
     }
 
 })

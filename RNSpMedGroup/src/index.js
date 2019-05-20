@@ -8,11 +8,14 @@ import {
 import Login from './Pages/Login'
 import Consultas from './Pages/Consultas'
 
-const AuthStack = createStackNavigator({ Login})
+console.disableYellowBox= true
+
+const AuthStack = createStackNavigator({Login})
 
 const MainNavigator = createBottomTabNavigator(
     { "Consultas": Consultas }
 )
+
 
 export default createAppContainer(
     createSwitchNavigator(
@@ -21,7 +24,7 @@ export default createAppContainer(
             AuthStack
         },
         {
-            initialRouteName: "AuthStack"
+            initialRouteName: "AuthStack",
         }
     )
 )

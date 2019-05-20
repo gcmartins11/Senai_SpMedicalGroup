@@ -7,6 +7,10 @@ import ConsultaCard from '../Components/ConsultaCard'
 
 
 export default class Consultas extends Component {
+    static navigationOptions = {
+        tabBarVisible: false
+    };
+
     constructor(props) {
         super(props)
         this.state = {
@@ -49,7 +53,8 @@ export default class Consultas extends Component {
                         // console.warn(chave)
                         return <ConsultaCard 
                                     especialidade={chave.especialidade}
-                                    nome={chave.nomeMedico}
+                                    medico={chave.nomeMedico}
+                                    paciente={chave.nomePaciente}
                                     data={chave.dataConsulta}
                                     hora={chave.horaConsulta}
                                     status={chave.status}
