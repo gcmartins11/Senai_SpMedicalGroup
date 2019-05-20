@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TextInput, Button, Image, TouchableOpacity, StatusBar, Text } from 'react-native'
+import { StyleSheet, View, TextInput, ActivityIndicator, Image, TouchableOpacity, StatusBar, Text, Button } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import jwt from 'jwt-decode'
 import api from '../Services/Api'
@@ -14,11 +14,13 @@ export default class Login extends Component {
         super(props)
         this.state = {
             email: 'gabriel.cmartins11@gmail.com',
-            senha: 'admin'
+            senha: 'admin',
+            loading: false
         }
     }
 
     _RealizarLogin = async () => {
+        this.setState({ loading: true })
         const resposta = await api.post('/login', {
             email: this.state.email,
             senha: this.state.senha
@@ -40,6 +42,7 @@ export default class Login extends Component {
                     translucent={true}
                     backgroundColor="#cecece00"
                 />
+
                 <Image
                     style={styles.image}
                     source={logo}
@@ -57,6 +60,7 @@ export default class Login extends Component {
                     secureTextEntry={true}
                     onChangeText={senha => this.setState({ senha })}
                 />
+                { this.state.loading ? <ActivityIndicator color='#fff' size={45} style={styles.loading} /> : null }
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this._RealizarLogin}
@@ -104,6 +108,9 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         fontWeight: '900'
+    },
+    loading: {
+        marginBottom: 30,
     }
-    
+
 })
