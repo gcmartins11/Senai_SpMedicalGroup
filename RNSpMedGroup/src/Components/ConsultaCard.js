@@ -26,49 +26,38 @@ class ConsultaCard extends Component {
                 <Text></Text>
             )
         }
-        if (this.state.role == 'Admianistrador') {
-            return (
-                <View style={styles.card}>
+        return (
+            <View style={styles.card}>
+
+                <View style={styles.campo}>
+                    <Text style={styles.titulo}>Especialidade</Text>
+                    <Text style={styles.valor}>{this.props.especialidade}</Text>
+                </View>
+
+                <View style={styles.campo}>
+                    <Text style={styles.titulo}>Doutor(a)</Text>
+                    <Text style={styles.valor}>{this.props.nome}</Text>
+                </View>
+
+                <View style={styles.dataHora}>
                     <View>
-                        <Text>Doutor(a)</Text>
-                        <Text>{this.props.nome}</Text>
+                        <Text style={styles.titulo}>Data</Text>
+                        <Text style={styles.valor}>{this.props.data}</Text>
+                    </View>
+
+                    <View>
+                        <Text style={styles.titulo}>Hora</Text>
+                        <Text style={styles.valor}>{this.props.hora}</Text>
                     </View>
                 </View>
-            )
-        } else if (this.state.role == 'Administrador') {
-            return (
-                <View style={styles.card}>
 
-                    <View style={styles.campo}>
-                        <Text style={styles.titulo}>Especialidade</Text>
-                        <Text style={styles.valor}>{this.props.especialidade}</Text>
-                    </View>
-
-                    <View style={styles.campo}>
-                        <Text style={styles.titulo}>Doutor(a)</Text>
-                        <Text style={styles.valor}>{this.props.nome}</Text>
-                    </View>
-
-                    <View style={styles.dataHora}>
-                        <View>
-                            <Text style={styles.titulo}>Data</Text>
-                            <Text style={styles.valor}>{this.props.data}</Text>
-                        </View>
-
-                        <View>
-                            <Text style={styles.titulo}>Hora</Text>
-                            <Text style={styles.valor}>{this.props.hora}</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.campo}>
-                        <Text style={styles.titulo}>Status</Text>
-                        <Text style={styles.valor}>{this.props.status}</Text>
-                    </View>
-
+                <View style={styles.campo}>
+                    <Text style={styles.titulo}>Status</Text>
+                    <Text style={styles.valor}>{this.props.status}</Text>
                 </View>
-            )
-        }
+
+            </View>
+        )
     }
 }
 
