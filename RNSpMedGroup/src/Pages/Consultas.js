@@ -41,9 +41,16 @@ export default class Consultas extends Component {
                 'Authorization': 'Bearer ' + (this.state.token)
             }
         })
-
+        AsyncStorage.setItem('listaConsultas', resposta.data)
         this.setState({listaConsultas: resposta.data})
+
+        this.MostrarLista()
     } 
+
+    MostrarLista = async() => {
+        const lista = await AsyncStorage.getItem('listaConsultas')
+        console.warn(lista)
+    }
 
     render() {
         return (

@@ -23,7 +23,15 @@ export default class Login extends Component {
         }
     }
 
-    componentWillMount() {
+    componentWillMount =async () => {
+        const token = await AsyncStorage.getItem('userToken')
+        const lista = await AsyncStorage.getItem('listaConsultas')
+        if (token != '') {
+            // this.props.navigation.navigate("Consultas")
+        }
+        console.warn(token)
+        console.warn(lista)
+
         this._VerificarConexao()
     }
 
@@ -49,7 +57,6 @@ export default class Login extends Component {
                 this.setState({ loading: false })
                 AsyncStorage.setItem('userToken', res.data.token)
                 AsyncStorage.setItem('userCredential', jwt(res.data.token).role)
-                console.warn('200')
                 this.props.navigation.navigate("Consultas")
             }
             else {
