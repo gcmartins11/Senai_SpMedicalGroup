@@ -14,18 +14,32 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: 'gabriel.cmartins11@gmail.com', // gabriel.cmartins11@gmail.com
-            senha: 'admin',
+            email: '', // gabriel.cmartins11@gmail.com
+            senha: '',
             loading: false,
-            disabled: false,
-            connected: ''            
+            connected: '',
+            disabled: '',
+            error: '',
         }
     }
-
-    componentWillMount = async () => {
-        await NetInfo.fetch().then(state => {
-            this.setState({connected: state.isConnected})
-          });
+    // componentDidMount() {
+        //     this.setarEmail('')
+        // }
+        
+    _VerificarConexao = async () => {
+            await NetInfo.fetch().then(state => {
+                this.setState({connected: state.isConnected})
+                if (!this.state.connected || this.state.email == '' && this.state.senha == '') {
+                    this.setState({disabled: true})
+                } else {
+                    this.setState({disabled: false})
+                }                
+            });
+        }
+        
+        
+    componentWillMount() {
+        this._VerificarConexao()
     }
 
     _RealizarLogin = async () => {
@@ -35,19 +49,23 @@ export default class Login extends Component {
             senha: this.state.senha
         })
 
-        await AsyncStorage.setItem('userToken', resposta.data.token)
-        await AsyncStorage.setItem('userCredential', jwt(resposta.data.token).role)
-
-        if (resposta.data.token !== null) {
+        if (resposta.status == 200) {
+            await AsyncStorage.setItem('userToken', resposta.data.token)
+            await AsyncStorage.setItem('userCredential', jwt(resposta.data.token).role)
             this.props.navigation.navigate("Consultas")
+        } else if (resposta.status >= 400) {
+            // console.warn(resposta.status)
+            this.setState({ error: 'Email ou senha incorretos'})
+            this.setState({ loading: false })
         }
+        this.render()
     }
 
     setarEmail = async(e) => {
-        await this.setState({email: e})       
-        if (this.state.email != '' && this.state.connected == true) {
+        await this.setState({email: e})   
+        if (this.state.email != '' && this.state.connected) {
             this.setState({disabled: false})
-        } else {
+        } else if (this.state.email == '' || !this.state.connected) {
             this.setState({disabled: true})
         }
         this.render()
@@ -55,16 +73,16 @@ export default class Login extends Component {
 
     setarSenha = async (e) => {
          await this.setState({senha: e})
-         if (this.state.senha != '' && this.state.connected == true) {
+         if (this.state.senha != '' && this.state.connected) {
             this.setState({disabled: false})
-        } else {
+        } else if (this.state.senha == '' || !this.state.connected) {
             this.setState({disabled: true})
         }
-         this.render()
+        this.render()
     }
 
     render() {
-
+        console.warn(this.state.error)
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -91,6 +109,7 @@ export default class Login extends Component {
                     onChangeText={senha => this.setarSenha(senha)}
                 />
                 { this.state.connected ? null : <Text style={styles.disconnected}>Você está desconectado</Text> }
+                { this.state.error == '' ? null : <Text style={styles.disconnected}>Email ou senha incorretos</Text> }
                 { this.state.loading ? <ActivityIndicator color='#fff' size={45} style={styles.loading} /> : null }
                 <TouchableOpacity
                     disabled={this.state.disabled}
