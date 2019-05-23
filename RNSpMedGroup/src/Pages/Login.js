@@ -24,14 +24,6 @@ export default class Login extends Component {
     }
 
     componentWillMount =async () => {
-        const token = await AsyncStorage.getItem('userToken')
-        const lista = await AsyncStorage.getItem('listaConsultas')
-        if (token != '') {
-            // this.props.navigation.navigate("Consultas")
-        }
-        console.warn(token)
-        console.warn(lista)
-
         this._VerificarConexao()
     }
 
@@ -53,7 +45,6 @@ export default class Login extends Component {
             senha: this.state.senha
         }).then(res => {
             if (res.status == 200) {
-                console.warn(res.status)
                 this.setState({ loading: false })
                 AsyncStorage.setItem('userToken', res.data.token)
                 AsyncStorage.setItem('userCredential', jwt(res.data.token).role)
@@ -67,7 +58,6 @@ export default class Login extends Component {
         }).catch(error => {
             this.setState({ loading: false })
             this.setState({error: 'Email ou senha inválidos'})
-            // console.warn('error')
             console.warn(error)
         })
 
