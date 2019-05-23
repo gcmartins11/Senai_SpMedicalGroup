@@ -60,7 +60,7 @@ class ConsultaCard extends Component {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#dedede',
-        marginTop: 50,
+        marginTop: 24,
         width: '90%',
         height: 280,
         borderRadius: 10,

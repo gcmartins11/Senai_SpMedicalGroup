@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Text } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
+import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../Services/Api'
 import ConsultaCard from '../Components/ConsultaCard'
@@ -15,14 +16,42 @@ export default class Consultas extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            connected: '',
             token: '',
             role: '',
             listaConsultas: []
         }
     }
 
-    componentDidMount() {
-        this._BuscarDados()
+    componentWillMount() {
+        this._VerificarConexao()
+    }
+
+    _VerificarConexao = async () => {
+        await NetInfo.fetch().then(state => {
+            this.setState({ connected: state.isConnected })
+        }
+        );
+        this.state.connected ? this._BuscarDados() : this._CarregarDadosOffline()
+
+    }
+
+    _CarregarDadosOffline = async () => {
+        var Datastore = require('react-native-local-mongodb'),
+            db = new Datastore({ filename: 'dadosConsultas', autoload: true });
+
+            let lista = [];
+            await db.find({}, function (err, docs) {
+                if (docs == '') {
+                    console.warn('nada aqui')
+                } else {
+                    // console.warn('docs aqui', docs)
+                    lista = docs;
+                }
+            })
+            console.warn('lista aqui 2',  lista)
+            // this.render()
+            // console.warn('lista aqui', this.state.listaConsultas)
     }
 
     _BuscarDados = async () => {
@@ -30,8 +59,6 @@ export default class Consultas extends Component {
         const role = await AsyncStorage.getItem('userCredential')
         this.setState({ token })
         this.setState({ role })
-        // console.warn(token)
-        // console.warn(this.state.role)
 
         this._FazerRequest()
     }
@@ -42,27 +69,44 @@ export default class Consultas extends Component {
                 'Authorization': 'Bearer ' + (this.state.token)
             }
         })
-        this.setState({ listaConsultas: resposta.data })
-        console.warn(resposta)
+        await this.setState({ listaConsultas: resposta.data })
+        this._SalvarDados()
     }
 
-    _Sair() {
-        console.warn("Sair")
-        this.props.navigation.push("./Login")
+    _SalvarDados() {
+        var Datastore = require('react-native-local-mongodb'),
+            db = new Datastore({ filename: 'dadosConsultas', autoload: true });
+
+        let lista = this.state.listaConsultas
+        db.find({}, function (err, docs) {
+            if (docs == '') {
+                db.insert(lista)
+            } else {
+
+                // db.find({}, function (err, docs) {
+                // })
+            }
+        });
     }
+
+    // _Sair() {
+    //     console.warn("Sair")
+    //     this.props.navigation.push("./Login")
+    // }
 
     render() {
+        console.warn('no render', this.state.listaConsultass)
         return (
             <View style={styles.container}>
                 {/* <ConsultaHeader/> */}
-                <View style={styles.header}>
+                {/* <View style={styles.header}>
                     <Text>Opa</Text>
                     <TouchableOpacity
                         onPress={this._Sair}
                     >
                         <Text>Opa</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
                 <ScrollView style={styles.scroll}>
                     {this.state.listaConsultas.map(chave => {
                         // console.warn(chave)
@@ -92,7 +136,7 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         paddingRight: 16
     }
-,    container: {
+    , container: {
         backgroundColor: 'white',
         flex: 1,
         flexDirection: 'column',

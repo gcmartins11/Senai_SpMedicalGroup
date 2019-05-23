@@ -23,7 +23,11 @@ export default class Login extends Component {
         }
     }
 
-    componentWillMount =async () => {
+    componentWillMount = async () => {
+        const token = await AsyncStorage.getItem('userToken')
+        if ( token != null ) {
+            this.props.navigation.navigate("Consultas")
+        }
         this._VerificarConexao()
     }
 
