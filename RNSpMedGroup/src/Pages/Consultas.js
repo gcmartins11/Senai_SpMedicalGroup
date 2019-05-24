@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, TextInput, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text, Image } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../Services/Api'
 import ConsultaCard from '../Components/ConsultaCard'
-import ConsultaHeader from '../Components/ConsultaHeader'
+import logo from '../Img/logo.png'
 
 
 export default class Consultas extends Component {
     static navigationOptions = {
-        tabBarVisible: false
+        tabBarVisible: false,
+        header: null
     };
 
     constructor(props) {
@@ -37,21 +38,21 @@ export default class Consultas extends Component {
     }
 
     _CarregarDadosOffline = async () => {
+        let root = this;
         var Datastore = require('react-native-local-mongodb'),
             db = new Datastore({ filename: 'dadosConsultas', autoload: true });
 
-            let lista = [];
-            await db.find({}, function (err, docs) {
-                if (docs == '') {
-                    console.warn('nada aqui')
-                } else {
-                    // console.warn('docs aqui', docs)
-                    lista = docs;
-                }
-            })
-            console.warn('lista aqui 2',  lista)
-            // this.render()
-            // console.warn('lista aqui', this.state.listaConsultas)
+        var lista = [];
+        await db.find({}, function (err, docs) {
+            if (docs == '') {
+                console.warn('nada aqui')
+            } else {
+                console.warn('docs aqui', docs)
+                lista = docs
+            }
+            console.warn('ta na lista', lista)
+            root.setState({ listaConsultas: lista })
+        })
     }
 
     _BuscarDados = async () => {
@@ -80,33 +81,37 @@ export default class Consultas extends Component {
         let lista = this.state.listaConsultas
         db.find({}, function (err, docs) {
             if (docs == '') {
+                console.warn('jogou no banco')
                 db.insert(lista)
             } else {
-
-                // db.find({}, function (err, docs) {
-                // })
+                db.remove({}, { multi: true }, function (err, numRemoved) {
+                });
+                db.insert(lista)
             }
         });
     }
 
-    // _Sair() {
-    //     console.warn("Sair")
-    //     this.props.navigation.push("./Login")
-    // }
+    _Sair() {
+        AsyncStorage.setItem('userToken', '')
+        this.props.navigation.navigate("AuthStack")
+    }
 
     render() {
-        console.warn('no render', this.state.listaConsultass)
         return (
             <View style={styles.container}>
-                {/* <ConsultaHeader/> */}
-                {/* <View style={styles.header}>
-                    <Text>Opa</Text>
+                <StatusBar
+                    hidden={false}
+                    translucent={false}
+                    backgroundColor="#cecece00"
+                />
+                <View style={styles.header}>
+                    <Image source={logo} style={styles.image}></Image>
                     <TouchableOpacity
-                        onPress={this._Sair}
+                        onPress={() => this._Sair()}
                     >
-                        <Text>Opa</Text>
+                        <Text style={styles.headerText}>Sair</Text>
                     </TouchableOpacity>
-                </View> */}
+                </View>
                 <ScrollView style={styles.scroll}>
                     {this.state.listaConsultas.map(chave => {
                         // console.warn(chave)
@@ -149,5 +154,14 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '102%',
         marginLeft: 15
-    }
+    },
+    headerText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: '500'
+    },
+    image: {
+        width: 37,
+        height: 40,
+    },
 })

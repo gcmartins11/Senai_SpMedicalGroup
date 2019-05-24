@@ -14,8 +14,8 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: '',
-            senha: '',
+            email: 'ligia@gmail.com',
+            senha: 'teste',
             loading: false,
             connected: '',
             disabled: '',
@@ -26,6 +26,7 @@ export default class Login extends Component {
     componentWillMount = async () => {
         const token = await AsyncStorage.getItem('userToken')
         if ( token != null ) {
+            console.warn(token)
             this.props.navigation.navigate("Consultas")
         }
         this._VerificarConexao()

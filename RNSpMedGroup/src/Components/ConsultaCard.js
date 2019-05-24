@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
         borderLeftColor: '#13C9AA',
         paddingLeft: 30,
         paddingBottom: 20,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.36,
-        shadowRadius: 6.68,
-        elevation: 10,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 5,
+        // },
+        // shadowOpacity: 0.36,
+        // shadowRadius: 6.68,
+        // elevation: 10,
     },
     dataHora: {
         flexDirection: 'row',
