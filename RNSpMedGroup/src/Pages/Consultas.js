@@ -114,7 +114,6 @@ export default class Consultas extends Component {
                 </View>
                 <ScrollView style={styles.scroll}>
                     {this.state.listaConsultas.map(chave => {
-                        // console.warn(chave)
                         return <ConsultaCard
                             especialidade={chave.especialidade}
                             medico={chave.nomeMedico}
@@ -139,7 +138,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#13C9AA',
         paddingLeft: 16,
-        paddingRight: 16
+        paddingRight: 16,
+        marginBottom: 12,
     }
     , container: {
         backgroundColor: 'white',

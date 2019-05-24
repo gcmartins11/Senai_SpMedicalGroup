@@ -49,7 +49,9 @@ class ConsultaCard extends Component {
 
                 <View style={styles.campo}>
                     <Text style={styles.titulo}>Status</Text>
-                    <Text style={styles.valor}>{this.props.status}</Text>
+                    {this.props.status == 'Agendada' ? <Text style={styles.agendada}>{this.props.status}</Text> : null}
+                    {this.props.status == 'Cancelada' ? <Text style={styles.cancelada}>{this.props.status}</Text> : null}
+                    {this.props.status == 'Realizada' ? <Text style={styles.realizada}>{this.props.status}</Text> : null}
                 </View>
 
             </View>
@@ -60,7 +62,8 @@ class ConsultaCard extends Component {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#dedede',
-        marginTop: 24,
+        marginTop: 12,
+        marginBottom: 12,
         width: '90%',
         height: 280,
         borderRadius: 10,
@@ -92,6 +95,19 @@ const styles = StyleSheet.create({
     valor: {
         fontSize: 19,
         fontWeight: 'bold'
+    },
+    agendada: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        color: 'orange'
+    }, cancelada: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        color: 'red'
+    },realizada: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        color: 'green'
     }
 })
 
