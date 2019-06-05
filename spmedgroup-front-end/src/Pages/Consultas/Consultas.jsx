@@ -19,7 +19,7 @@ class Consultas extends Component {
 
     carregarDados() {
 
-        fetch('https://spmedgroup.azurewebsites.net/api/consultas',
+        fetch('http://localhost:5000/api/consultas',
             {
                 headers: {
                     "Content-Type": "application/json",

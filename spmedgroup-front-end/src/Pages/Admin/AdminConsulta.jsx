@@ -21,7 +21,7 @@ class AdminConsulta extends Component {
     }
 
     componentDidMount() {
-        fetch('https://spmedgroup.azurewebsites.net/api/usuarios/getmedicos',
+        fetch('http://localhost:5000/api/usuarios/getmedicos',
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -32,7 +32,7 @@ class AdminConsulta extends Component {
             .then(data => this.setState({listaMedicos: data}))
             .catch(erro => console.log(erro))
 
-            fetch('https://spmedgroup.azurewebsites.net/api/usuarios/getpacientes',
+            fetch('http://localhost:5000/api/usuarios/getpacientes',
             {
                 headers: {
                     "Content-Type": "application/json",

@@ -25,7 +25,7 @@ class Admin extends Component {
     cadastrar(e) {
         e.preventDefault()
 
-        fetch('https://spmedgroup.azurewebsites.net/api/usuarios',
+        fetch('http://localhost:5000/api/api/usuarios',
         {   method: 'POST',
             body : JSON.stringify(this.state),
             headers: {

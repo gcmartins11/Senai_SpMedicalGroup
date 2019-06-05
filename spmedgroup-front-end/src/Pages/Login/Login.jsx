@@ -30,7 +30,7 @@ class Login extends Component {
 
         // http://localhost:5000/api/login
         // https://spmedgroup.azurewebsites.net/api/login
-        Axios.post("https://spmedgroup.azurewebsites.net/api/login", {
+        Axios.post("http://localhost:5000/api/login", {
            email : this.state.email,
            senha: this.state.senha
         })
