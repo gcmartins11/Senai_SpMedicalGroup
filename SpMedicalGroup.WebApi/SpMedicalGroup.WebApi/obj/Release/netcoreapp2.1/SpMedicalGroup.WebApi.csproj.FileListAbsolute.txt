@@ -40,3 +40,17 @@ C:\Users\Cardoso\Desktop\Senai.SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGro
 C:\Users\Cardoso\Desktop\Senai.SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.RazorTargetAssemblyInfo.cache
 C:\Users\Cardoso\Desktop\Senai.SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.dll
 C:\Users\Cardoso\Desktop\Senai.SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.pdb
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\bin\Release\netcoreapp2.1\SpMedicalGroup.WebApi.deps.json
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\bin\Release\netcoreapp2.1\SpMedicalGroup.WebApi.runtimeconfig.json
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\bin\Release\netcoreapp2.1\SpMedicalGroup.WebApi.runtimeconfig.dev.json
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\bin\Release\netcoreapp2.1\SpMedicalGroup.WebApi.dll
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\bin\Release\netcoreapp2.1\SpMedicalGroup.WebApi.pdb
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.csprojAssemblyReference.cache
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.csproj.CoreCompileInputs.cache
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.RazorAssemblyInfo.cache
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.RazorAssemblyInfo.cs
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.AssemblyInfoInputs.cache
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.AssemblyInfo.cs
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.RazorTargetAssemblyInfo.cache
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.dll
+C:\Users\Cardoso\Projects\Senai_SpMedicalGroup\SpMedicalGroup.WebApi\SpMedicalGroup.WebApi\obj\Release\netcoreapp2.1\SpMedicalGroup.WebApi.pdb

@@ -40,7 +40,6 @@ class Consultas extends Component {
                 <Navbar />
                 <div id="fundo-cards" className="fundo-cards">
                     {this.state.listaconsultas.map(chave => { return <Card key={chave.id} especialidade={chave.especialidade} medico={chave.nomeMedico} data={chave.dataConsulta} hora={chave.horaConsulta} status={chave.status} /> })}
-                    {/* <Card especialidade="Neurologia" medico="Helena" data="10/10/2019" hora="19:00" status="Realizada" /> */}
                 </div>
             </div>
         )

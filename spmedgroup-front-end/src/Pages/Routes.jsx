@@ -5,6 +5,8 @@ import Login from './Login/Login'
 import Consultas from './Consultas/Consultas'
 import AdminUsuario from './Admin/AdminUsuario'
 import AdminConsulta from './Admin/AdminConsulta'
+import Localizacoes from './Localizacoes/Localizacoes'
+import LocalizacoesDetalhes from './Localizacoes/LocalizacoesDetalhes'
 
 export default props =>
 <Router>
@@ -13,6 +15,8 @@ export default props =>
         <Route path="/Consultas" component={Consultas}/>
         <Route path="/admin/usuario" component={AdminUsuario}/>
         <Route path="/admin/consulta" component={AdminConsulta}/>
+        <Route path="/localizacoes" component={Localizacoes}/>
+        <Route path="/localizacoesDetalhes" component={LocalizacoesDetalhes}/>
         <Redirect from="*" to="/login"/>
     </Switch>
 </Router>

@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import Axios from 'axios'
 import { parseJwt } from '../../Services/Auth'
-
-import './Login.css'
+import api from '../../Services/Api'
 import Logo from '../../Img/logo-spmed.png'
+import './Login.css'
 
 class Login extends Component {
     constructor() {
@@ -30,7 +29,7 @@ class Login extends Component {
 
         // http://localhost:5000/api/login
         // https://spmedgroup.azurewebsites.net/api/login
-        Axios.post("http://localhost:5000/api/login", {
+        api.post("/api/login", {
            email : this.state.email,
            senha: this.state.senha
         })
