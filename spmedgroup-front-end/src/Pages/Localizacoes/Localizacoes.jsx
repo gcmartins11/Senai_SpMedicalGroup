@@ -1,33 +1,46 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import api from '../../Services/Api'
 import Navbar from '../../Components/Navbar-consultas/Navbar'
+import ElementoLista from '../../Components/Lista-locais/ElementoLista'
 import './Localizacoes.css'
 
 export default class Localizacoes extends Component {
     constructor() {
         super()
-        this.clinicas = []
+        this.state = {
+            clinicas: []
+        }
     }
 
-    componentWillMount = async() => {
+    componentWillMount = async () => {
         const res = await api.get('/api/clinicas', {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem("usuario")
             }
         })
 
-        this.clinicas = res.data
-        this.render()
+        this.setState({ clinicas: res.data })
     }
-    
+
     render() {
         return (
             <div>
-                <Navbar/>
-                {this.clinicas.map(key => {
-                    console.log(key)
-                    return <h1>{key.cnpj}</h1>
-                })}
+                <Navbar />
+
+                <center>
+                    <div class="gmap_canvas">
+                        <iframe title="gmap" id="gmap_canvas" src="https://maps.google.com/maps?q=s%C3%A3o%20paulo&t=&z=11&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                        </iframe>
+                    </div>
+                </center>
+
+                <div class="local-content">
+                    <h2 className="local-titulo">Localizações</h2>
+                    {this.state.clinicas.map(key => {
+                        console.log(key)
+                        return <ElementoLista nomeFantasia={key.nomeFantasia} logradouro={key.logradouro} numero={key.numero} />
+                    })}
+                </div>
             </div>
         )
     }

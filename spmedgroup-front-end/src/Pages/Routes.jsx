@@ -15,8 +15,8 @@ export default props =>
         <Route path="/Consultas" component={Consultas}/>
         <Route path="/admin/usuario" component={AdminUsuario}/>
         <Route path="/admin/consulta" component={AdminConsulta}/>
-        <Route path="/localizacoes" component={Localizacoes}/>
-        <Route path="/localizacoesDetalhes" component={LocalizacoesDetalhes}/>
+        <Route path="/admin/localizacoes" component={Localizacoes}/>
+        <Route path="/admin/localizacoesDetalhes" component={LocalizacoesDetalhes}/>
         <Redirect from="*" to="/login"/>
     </Switch>
 </Router>
