@@ -1,6 +1,18 @@
 #ElementoLista {
     display: flex;
+    width: 100%;
+    margin-bottom: 10px;
 }
  h3 {
      margin: 4px 8px;
+ }
+
+ button {
+     background: #ffffff00;
+     border: none;
+     color: #14D6B5;
+     outline: none;
+     font-size: 10pt;
+     font-weight: 600;
+     cursor: pointer;
  }

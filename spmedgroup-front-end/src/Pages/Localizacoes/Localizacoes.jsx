@@ -27,11 +27,23 @@ export default class Localizacoes extends Component {
         .then((clinicas) => {
             let clinicasArray = []
             clinicas.forEach((clinica) => {
-                clinicasArray.push({id: clinica.id, nome: clinica.data().nome})
+                clinicasArray.push({
+                    id: clinica.id,
+                    nome: clinica.data().nome,
+                    cep: clinica.data().cep,
+                    endereco: clinica.data().endereco,
+                    numero: clinica.data().numero,
+                    especialidades: clinica.data().especialidades,
+
+                })
             })
-            console.log(clinicasArray)
+            this.setState({clinicas: clinicasArray})
         })
 
+    }
+
+    verDetalhes() {
+        console.log("CLIQUE")
     }
 
     render() {
@@ -50,7 +62,7 @@ export default class Localizacoes extends Component {
                     <h2 className="local-titulo">Localizações</h2>
                     {this.state.clinicas.map(key => {
                         console.log(key)
-                        return <ElementoLista nomeFantasia={key.nomeFantasia} logradouro={key.logradouro} numero={key.numero} />
+                    return  <ElementoLista nome={key.nome} endereco={key.endereco} numero={key.numero} />
                     })}
                 </div>
             </div>

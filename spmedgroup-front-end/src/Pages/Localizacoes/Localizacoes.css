@@ -12,7 +12,9 @@
 .local-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    width: 50%;
+    margin: 0px auto;
 }
 
 .local-titulo {
@@ -39,4 +41,9 @@
 
 li {
     list-style-type: none;
+}
+
+.local-content h2 {
+    margin: 0px auto;
+    margin-bottom: 25px;
 }
