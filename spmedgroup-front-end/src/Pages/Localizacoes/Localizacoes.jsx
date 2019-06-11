@@ -42,8 +42,9 @@ export default class Localizacoes extends Component {
 
     }
 
-    verDetalhes() {
-        console.log("CLIQUE")
+    verDetalhes(e) {
+        localStorage.setItem("cep", e.target.name)
+        this.props.history.push('/admin/localizacoesDetalhes')
     }
 
     render() {
@@ -61,9 +62,12 @@ export default class Localizacoes extends Component {
                 <div className="local-content">
                     <h2 className="local-titulo">Localizações</h2>
                     {this.state.clinicas.map(key => {
-                        console.log(key)
-                    return  <ElementoLista nome={key.nome} endereco={key.endereco} numero={key.numero} />
-                    })}
+                    return  <div style={{display: "flex", width: "100%", borderBottom: '1px solid #14D6B5', marginBottom: "25px" }}>
+                                <ElementoLista nome={key.nome} endereco={key.endereco} numero={key.numero} />
+                                <button style={{width: "20%"}} name={key.cep} onClick={this.verDetalhes.bind(this)}>Ver detalhes</button>
+                            </div>
+                    })
+                    }
                 </div>
             </div>
         )
