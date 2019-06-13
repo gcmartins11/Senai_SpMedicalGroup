@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './Localizacoes.css'
 import Navbar from '../../Components/Navbar-consultas/Navbar'
 import firebase from '../../Services/firestore'
-import api from '../../Services/Api'
 
 export default class LocalizacoesDetalhes extends Component {
     constructor() {
