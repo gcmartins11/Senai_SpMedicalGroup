@@ -100,7 +100,7 @@ export default class LocalizacoesDetalhes extends Component {
     render() {
         return (
             <div>
-                <Navbar />
+                <Navbar history= {this.props.history}/>
                 <section class="container">
                     <div class="one">
                         <h2>{this.state.nome}</h2>

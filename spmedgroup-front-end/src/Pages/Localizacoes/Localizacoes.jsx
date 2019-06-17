@@ -79,7 +79,7 @@ export default class Localizacoes extends Component {
     render() {
         return (
             <div>
-                <Navbar />
+                <Navbar history= {this.props.history}/>
 
                 <center>
                     <div classNames="gmap_canvas">
