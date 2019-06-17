@@ -14,7 +14,7 @@ export default class Localizacoes extends Component {
             cep: '',
             endereco: '',
             numero: '',
-            especialidades: ['maçã']
+            especialidades: []
         }
     }
 
@@ -51,21 +51,28 @@ export default class Localizacoes extends Component {
 
     atualizarEspecialidades(event) {
         let especialidadesArray = this.state.especialidades
-        for (let index = 0; index < especialidadesArray.length; index++) {
-            if (event.target.value === especialidadesArray[index]) {
-                especialidadesArray.splice(index)
-            }
-            else {
-                especialidadesArray.push(event.target.name)
-            }
-            
+        if (especialidadesArray.indexOf(event.target.name) === -1) {
+            especialidadesArray.push(event.target.name)
+        } else {
+            especialidadesArray.splice(especialidadesArray.indexOf(event.target.name), 1)
         }
-        this.setState({especialidades: especialidadesArray})
-        console.log(especialidadesArray)
+        this.setState({ especialidades: especialidadesArray })
     }
 
     cadastrar(event) {
-        event.preventDefault()
+
+        let clinica = {
+            nome: this.state.nome,
+            endereco: this.state.endereco,
+            numero: this.state.numero,
+            cep: this.state.cep,
+            especialidades: this.state.especialidades
+        }
+
+        firebase.firestore()
+            .collection("clinicas")
+            .add(clinica)
+            .then((result) => { alert('Cadastrado') })
 
     }
 
@@ -91,27 +98,29 @@ export default class Localizacoes extends Component {
                     })
                     }
                 </div>
-                <div>
-                    <h1>Cadastrar Clinica</h1>
-                    <form onSubmit={this.cadastrar.bind(this)}>
-                        <input name="nome" onChange={this.atualizarState.bind(this)} placeholder="Nome" type="text" />
-                        <input name="cep" onChange={this.atualizarState.bind(this)} placeholder="CEP" type="text" />
-                        <input name="endereco" onChange={this.atualizarState.bind(this)} placeholder="Endereço" type="text" />
-                        <input name="numero" onChange={this.atualizarState.bind(this)} placeholder="Numero" type="text" />
-                        <div>
-                            <input type="checkbox" id="neurologia" name="neurologia" onChange={this.atualizarEspecialidades.bind(this)} />
-                            <label htmlFor="neurologia">Neurologia</label>
-                            
-                            <input type="checkbox" id="psicologia" name="psicologia" onChange={this.atualizarEspecialidades.bind(this)} />
-                            <label htmlFor="psicologia">Psicologia</label>
-                            
-                            <input type="checkbox" id="pediatria" name="pediatria" onChange={this.atualizarEspecialidades.bind(this)} />
-                            <label htmlFor="pediatria">Psediatria</label>
-                            
-                        </div>
-                        <input type="submit" value="Cadastrar" />
-                    </form>
+                    <center>
+                <div style={{borderTop:'2px solid teal', width: '80%', marginTop: '80px'}}>
+                        <h2 className="local-titulo">Cadastrar Clínica</h2>
+                        <form className="cadastro-clinica" onSubmit={this.cadastrar.bind(this)}>
+                            <input className="input-padrao" name="nome" onChange={this.atualizarState.bind(this)} placeholder="Nome" type="text" />
+                            <input className="input-padrao" name="cep" onChange={this.atualizarState.bind(this)} placeholder="CEP" type="text" />
+                            <input className="input-padrao" name="endereco" onChange={this.atualizarState.bind(this)} placeholder="Endereço" type="text" />
+                            <input className="input-padrao" name="numero" onChange={this.atualizarState.bind(this)} placeholder="Numero" type="text" />
+                            <div>
+                                <input className="checkbox" type="checkbox" id="neurologia" name="neurologia" onChange={this.atualizarEspecialidades.bind(this)} />
+                                <label htmlFor="neurologia">Neurologia</label>
+
+                                <input className="checkbox" type="checkbox" id="psicologia" name="psicologia" onChange={this.atualizarEspecialidades.bind(this)} />
+                                <label htmlFor="psicologia">Psicologia</label>
+
+                                <input className="checkbox" type="checkbox" id="pediatria" name="pediatria" onChange={this.atualizarEspecialidades.bind(this)} />
+                                <label htmlFor="pediatria">Pediatria</label>
+
+                            </div>
+                            <input className="login-button" style={{margin: '25px'}} type="submit" value="Cadastrar" />
+                        </form>
                 </div>
+                    </center>
             </div>
         )
     }

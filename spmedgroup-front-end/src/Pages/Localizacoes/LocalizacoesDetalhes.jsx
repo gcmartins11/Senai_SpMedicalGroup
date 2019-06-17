@@ -18,7 +18,7 @@ export default class LocalizacoesDetalhes extends Component {
             cadastroLatitude: '',
             cadastroLongitude: '',
             cadastroDiagnostico: '',
-            
+
 
         }
     }
@@ -65,8 +65,8 @@ export default class LocalizacoesDetalhes extends Component {
                         id: paciente.id,
                         nome: paciente.data().nome,
                         idade: paciente.data().idade,
-                        endereco: paciente.data().endereco,
-                        numero: paciente.data().numero,
+                        latitude: paciente.data().latitude,
+                        longitude: paciente.data().longitude,
                         diagnostico: paciente.data().diagnostico
                     })
                 })
@@ -76,7 +76,7 @@ export default class LocalizacoesDetalhes extends Component {
     }
 
     atualizarState(event) {
-        this.setState({[event.target.name]: event.target.value})
+        this.setState({ [event.target.name]: event.target.value })
     }
 
     cadastrarProntuario(event) {
@@ -87,13 +87,13 @@ export default class LocalizacoesDetalhes extends Component {
             idade: this.state.cadastroIdade,
             latitude: this.state.cadastroLatitude,
             lognitude: this.state.cadastroLongitude,
-            diagnostico: this.state.cadastroDiagnostico, 
+            diagnostico: this.state.cadastroDiagnostico,
         }
 
         firebase.firestore()
-        .collection("pacientes")
-        .add(paciente)
-        .then((result) => {alert('Cadastrado')})
+            .collection("pacientes")
+            .add(paciente)
+            .then((result) => { alert('Cadastrado') })
 
     }
 
@@ -105,7 +105,7 @@ export default class LocalizacoesDetalhes extends Component {
                     <div class="one">
                         <h2>{this.state.nome}</h2>
                         <h3>{this.state.endereco} - {this.state.numero}</h3>
-                        <h3 style={{ marginTop: "20px" }}>Atendimentos feitos</h3>
+                        <h3 style={{ marginTop: "10px" }}>Atendimentos feitos</h3>
                         <ul style={{ margin: 0 }}>
                             {this.state.especialidades.map(key => {
                                 return <li>{key}</li>
@@ -120,22 +120,23 @@ export default class LocalizacoesDetalhes extends Component {
                     </div>
                 </section>
 
-                <div className="lista-prontuarios">
-                    <h1>Prontuarios</h1>
-                    {this.state.prontuarios.map((paciente) => {
-                        return <h3>{paciente.nome}</h3>
-                    })}
-                </div>
+                    <div className="lista-prontuarios">
+                        <h1 className="local-titulo">Prontuarios</h1>
+                        {this.state.prontuarios.map((paciente) => {
+                            return <h3 style={{ marginTop: "10px" }}>Nome: {paciente.nome} | Idade: {paciente.idade} | Latitude: {paciente.latitude} | Longitude: {paciente.longitude} | Diagnóstico: {paciente.diagnostico}</h3>
+                        })}
+                    </div>
+
                 <div className="cadastro-Prontuarios">
-                    <h1>Cadastrar prontuario</h1>
                     <center>
+                        <h1 className="local-titulo">Cadastrar prontuario</h1>
                         <form onSubmit={this.cadastrarProntuario.bind(this)}>
-                            <input name="cadastroNome" onChange={this.atualizarState.bind(this)} placeholder="Nome" type="text" />
-                            <input name="cadastroIdade" onChange={this.atualizarState.bind(this)} placeholder="Idade" type="text" />
-                            <input name="cadastroLatitude" onChange={this.atualizarState.bind(this)} placeholder="Latitude" type="text" />
-                            <input name="cadastroLongitude" onChange={this.atualizarState.bind(this)} placeholder="Longitude" type="text" />
-                            <input name="cadastroDiagnostico" onChange={this.atualizarState.bind(this)} placeholder="Diagnostico" type="text" />
-                            <input type="submit" value="Cadastrar prontuario" />
+                            <input className="input-padrao" name="cadastroNome" onChange={this.atualizarState.bind(this)} placeholder="Nome" type="text" />
+                            <input className="input-padrao" name="cadastroIdade" onChange={this.atualizarState.bind(this)} placeholder="Idade" type="text" />
+                            <input className="input-padrao" name="cadastroLatitude" onChange={this.atualizarState.bind(this)} placeholder="Latitude" type="text" />
+                            <input className="input-padrao" name="cadastroLongitude" onChange={this.atualizarState.bind(this)} placeholder="Longitude" type="text" />
+                            <input className="input-padrao" name="cadastroDiagnostico" onChange={this.atualizarState.bind(this)} placeholder="Diagnostico" type="text" />
+                            <input className="input-padrao" type="submit" value="Cadastrar prontuario" />
                         </form>
                     </center>
                 </div>
